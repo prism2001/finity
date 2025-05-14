@@ -8,6 +8,8 @@ Finity is a modern, minimal, and elegant theme for [Jellyfin](https://jellyfin.o
 
 > [!IMPORTANT]
 > This theme is meant to be used in conjunction with Jellyfin's included "Dark" user theme (found in your user settings). **Using any other built-in Jellyfin theme is NOT supported at this time, and will almost certainly look terrible.**
+>
+> Music libraries are not supported at this time, and at the moment I have no immediate plans to work on this. However, I will gladly look at any PRs for music libraries.
 > 
 > Finally, make sure to **enable blurred placeholders for images** and **disable backdrops** in your user display settings. Not doing so may cause several important aspects of the theme to not render correctly (such as the gradient mask for show backdrops)
 
