@@ -59,9 +59,22 @@ There are two different variants available for you to choose from:
    
    Windows: `C:\Program Files\Jellyfin\Server\jellyfin-web\index.html`
 
+   Finally, in your webroot, create an `avatars` directory, and inside of it, a `list.txt` file. Then format it like this:
+
+   ```
+   Featured
+   ID1
+   ID2
+   ID3
+   ```
+
+   Replace the `IDx` lines with an ID from a movie or show in your library. You can get this by clicking on something, and copying the `&id=` from your browser's URL bar:
+   ![image](https://github.com/user-attachments/assets/76bb3f70-fb44-44fe-907e-e814ebdcc773)
+
+
    ---
    
-   After completing the step in the notice above, add this to the **top** of your Jellyfin's custom CSS field:
+   After completing the steps above, add this to the **top** of your Jellyfin's custom CSS field:
    
    ``@import url("https://cdn.jsdelivr.net/gh/prism2001/finity@main/complete/finity-complete.css");
    ``
