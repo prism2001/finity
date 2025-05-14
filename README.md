@@ -2,7 +2,7 @@
 
 ![Finity Logo](finity.png)
 
-Now in beta. There is still polishing to be done here and there, and some areas of the UI haven't been completely finalized yet, but most of the main styling is present. PRs are welcomed - whether it be to make things more efficient, performant, or to polish the overall theme.
+Now in beta. There is still polishing to be done here and there, and some areas of the UI haven't been completely finalized yet, but most of the main styling is present. PRs are welcomed - whether it be to make things more efficient, performant, or to polish the overall theme. Right now there may be quite a few bugs since I haven't had very many people testing it on different browsers and monitor setups.
 
 Finity is a modern, minimal, and elegant theme for [Jellyfin](https://jellyfin.org). Designed with clarity and immersiveness in mind, it introduces sleek typography, and a clean layout to elevate your media browsing experience.
 
