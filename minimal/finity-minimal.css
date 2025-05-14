@@ -4,7 +4,6 @@
 
 @import url(https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400..700;1,400..700&display=swap);
 
-/* Rubik Regular - Latin */
 @font-face {
   font-display: swap;
   font-family: 'Rubik';
@@ -17,7 +16,7 @@
 /* ======================================== */
 :root {
   /* --- Base Colors --- */
-  --theme-background-color: rgba(24, 24, 24, 1); /* Base background for the page */
+  --theme-background-color: #181818; /* Base background for the page */
   --theme-background-color-alpha: #18181849; /* Background with alpha for some elements */
   --theme-text-color: #eee; /* Primary text color */
   --theme-text-color-secondary: #dbdbdb; /* Secondary text color (e.g., episode titles) */
@@ -65,6 +64,8 @@
   --theme-roundness-xlarge: 1em; /* Extra large border radius (e.g., paper list) */
   --theme-roundness-full: 4em; /* Pill/fully rounded shape */
   --theme-roundness-progress: 10px; /* Border radius for progress bars */
+  /* Border Gradient (Uncomment to use, ensure --border-color-solid is transparent) */
+  /* --border-color: linear-gradient(45deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 41%, rgba(255, 255, 255, 0.1) 57%, rgba(255, 255, 255, 0.3) 100%); */
   --border-color-solid: transparent; /* Use transparent for gradient border, or set a solid color */
   --border-width: 1px; /* Standard border width */
   --border-width-thick: 2px; /* Thicker border width */
@@ -148,10 +149,6 @@ html {
   -moz-box-shadow: none !important;
 }
 
-.preload {
-  background-color: var(--theme-background-color);
-}
-
 /* ======================================== */
 /* === CORE UI ELEMENTS === */
 /* (Header, Drawer, Action Sheets, Form Elements) */
@@ -228,6 +225,26 @@ option {
 /* --- Element hiding --- */
 .selectVideoContainer { display: none !important; }
 .itemExternalLinks { display: var(--display-external-links) !important; }
+.tomato-rating { display: var(--display-tomato-rating) !important; }
+.age-rating { display: var(--display-age-rating) !important; }
+.imdb-logo { display: var(--display-imdb-logo) !important; }
+.imdb-logo+span { display: var(--display-imdb-logo) !important; }
+.starRatingContainer.mediaInfoItem { display: var(--display-star-rating) !important; }
+.mediaInfoCriticRating { display: var(--display-critic-rating) !important; }
+
+/* Hide separators next to hidden items */
+.imdb-logo+.separator-icon,
+.tomato-rating+.separator-icon,
+.age-rating+.separator-icon,
+.imdb-logo+span+.separator-icon {
+  display: var(--display-imdb-logo) !important;
+}
+
+/* Hide Movie Trailer Tab */
+body > div.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blurred > div.headerTabs.sectionTabs > div > div > button:nth-child(3),
+.mainDrawer:has(.navMenuOption-selected[href^="#/movies.html"]) + .skinHeader .emby-tab-button[data-index="2"] {
+  display: var(--display-movie-trailer-tab) !important;
+}
 
 /* ======================================== */
 /* === CARDS === */
@@ -444,6 +461,16 @@ option {
   z-index: 3;
 }
 
+.backdropContainer {
+  height: 100vh;
+  left: var(--detail-page-backdrop-offset);
+  position: absolute;
+  top: 0;
+  width: var(--detail-page-backdrop-width);
+  z-index: 0;
+  pointer-events: none;
+}
+
 .layout-desktop .itemBackdrop {
   background-attachment: scroll;
   background-position: center;
@@ -454,7 +481,7 @@ option {
 }
 
 .layout-desktop .backgroundContainer.withBackdrop {
-  background: url("https://raw.githubusercontent.com/prism2001/finity/main/assets/mask.png");
+  background: url("https://raw.githubusercontent.com/prism2001/finity/main/minimal/mask-minimal.png");
   background-size: cover;
   height: 100vh;
   left: var(--detail-page-mask-offset);
@@ -657,7 +684,7 @@ span.material-icons.cardOverlayButtonIcon.cardOverlayButtonIcon-hover.play_arrow
 /* --- Plot/Description Text --- */
 div.detailPageContent div.detailSectionContent p, /* General paragraph in detail section */
 .plot { /* Specifically the plot */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
 }
 
 .detail-clamp-text { /* Clamped description text */
