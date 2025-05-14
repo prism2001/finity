@@ -1,0 +1,1196 @@
+/* ======================================== */
+/* === FONTS === */
+/* ======================================== */
+
+@import url(https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400..700;1,400..700&display=swap);
+
+/* Rubik Regular - Latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* ======================================== */
+/* === CONFIGURABLE THEME VARIABLES (:root) === */
+/* ======================================== */
+:root {
+  /* --- Base Colors --- */
+  --theme-background-color: rgba(24, 24, 24, 1); /* Base background for the page */
+  --theme-background-color-alpha: #18181849; /* Background with alpha for some elements */
+  --theme-text-color: #eee; /* Primary text color */
+  --theme-text-color-secondary: #dbdbdb; /* Secondary text color (e.g., episode titles) */
+  --theme-accent-color: #00a5dc; /* Main accent color (links, highlights) */
+  --theme-accent-color-alpha-low: #000; /* Accent color with low alpha (hover effects) */
+  --theme-accent-color-alpha-med: #00a5dc28; /* Accent color with medium alpha (hover effects) */
+  --theme-accent-color-alpha-high: #00a5dc93; /* Accent color with high alpha (progress bar) */
+  --theme-accent-color-alpha-hover: #01bfffed; /* Accent color on hover */
+  --theme-warning-color: #bb4a4a; /* Color for warning/destructive actions (e.g., shutdown) */
+
+  /* --- Alpha Colors (White & Black) --- */
+  --theme-white-alpha-low: rgba(255, 255, 255, 0.08);
+  --theme-white-alpha-med: rgba(255, 255, 255, 0.1);
+  --theme-white-alpha-med-high: rgba(255, 255, 255, 0.15);
+  --theme-white-alpha-high: rgba(255, 255, 255, 0.16);
+  --theme-white-alpha-higher: rgba(255, 255, 255, 0.3);
+  --theme-white-alpha-text-low: rgba(255, 255, 255, 0.7);
+  --theme-white-alpha-text-med: rgba(255, 255, 255, 0.85);
+  --theme-white-alpha-text-high: rgba(255, 255, 255, 0.9);
+  --theme-black-alpha-low: rgba(0, 0, 0, 0.3);   /* Shadows */
+  --theme-black-alpha-med: rgba(0, 0, 0, 0.55);  /* Progress bar bg, overlays */
+  --theme-black-alpha-high: rgba(0, 0, 0, 0.6);  /* Context menu bg */
+  --theme-black-alpha-higher: rgba(0, 0, 0, 0.8); /* Text shadows */
+  --theme-black-alpha-highest: rgba(0, 0, 0, 0.85);/* Tooltips */
+
+  /* --- Element Backgrounds --- */
+  --card-bg: #101010; /* Background color for cards */
+  --indicator-bg: #10101094; /* Background for indicators (played, count) */
+  --transparent-bg: #10101000; /* Fully transparent background */
+  --header-bg: rgba(0, 0, 0, 0.6); /* Background for header/action sheet */
+  --button-bg: #2f2f2f; /* Background for standard buttons */
+  --button-bg-subtle: rgba(255, 255, 255, 0.1); /* Subtle background for pill buttons, etc. */
+  --button-bg-subtle-hover: rgba(255, 255, 255, 0.16); /* Hover background for subtle buttons */
+  --button-bg-play: rgba(255, 255, 255, 0.3); /* Background for primary play buttons */
+  --button-bg-overlay: rgba(255, 255, 255, 0.08); /* Background for small overlay buttons */
+  --button-bg-overlay-hover: rgba(255, 255, 255, 0.15); /* Hover background for small overlay buttons */
+  --tooltip-bg: rgba(0, 0, 0, 0.85); /* Background for tooltips */
+  --context-menu-bg: rgba(58, 58, 58, 0.5); /* Fallback background for context menus (used with blur) */
+  --sidebar-bg: rgba(0, 0, 0, 0.6); /* Background for collapsible sidebar */
+  --episode-grid-bg: #00000082; /* Background for episode elements in the episode grid */
+
+  /* --- Borders & Roundness --- */
+  --theme-roundness: 0.5rem; /* General border radius */
+  --theme-roundness-large: 15px; /* Larger border radius (e.g., cards) */
+  --theme-roundness-xlarge: 1em; /* Extra large border radius (e.g., paper list) */
+  --theme-roundness-full: 4em; /* Pill/fully rounded shape */
+  --theme-roundness-progress: 10px; /* Border radius for progress bars */
+  --border-color-solid: transparent; /* Use transparent for gradient border, or set a solid color */
+  --border-width: 1px; /* Standard border width */
+  --border-width-thick: 2px; /* Thicker border width */
+
+  /* --- Effects --- */
+  --blur-intensity: 2px; /* Blur amount */
+  --blur-saturation: 180%; /* Saturation amount for blurred elements */
+  --blur-effect: blur(var(--blur-intensity)) saturate(var(--blur-saturation)); /* Combined blur effect */
+  --card-shadow: 0px 8px 16px var(--theme-black-alpha-low); /* Shadow for cards */
+  --text-shadow-continue-watching: 0 1px 3px var(--theme-black-alpha-higher); /* Text shadow for 'Continue Watching' */
+  --text-shadow-video-cue: /* Crunchyroll-style outline for subtitles */
+    -3px -3px 0 black, -3px 0 0 black, -3px 3px 0 black,
+    0 -3px 0 black, 0 3px 0 black,
+    3px -3px 0 black, 3px 0 0 black, 3px 3px 0 black;
+
+  /* --- Fonts & Text --- */
+  --font-family-base: "Rubik", sans-serif; /* Primary font */
+  --font-family-video-cue: 'Trebuchet MS', sans-serif; /* Font for video subtitles */
+  --font-size-small: small;
+  --font-size-base: 0.9rem; /* Base font size (e.g., episode titles) */
+  --font-size-large: large;
+  --font-size-h2: 1.5em; /* Default h2 size */
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* --- Layout & Sizing --- */
+  --card-padding: 25px; /* Padding inside cards */
+  --detail-page-side-padding: 5%; /* Padding on the sides of detail pages */
+  --detail-page-primary-width: 45%; /* Width of the primary content area on desktop detail pages */
+  --detail-page-backdrop-offset: 17%; /* Offset for the backdrop image */
+  --detail-page-backdrop-width: 85vw; /* Width of the backdrop container */
+  --detail-page-mask-offset: 16%; /* Start mask slightly before backdrop */
+  --detail-page-mask-width: 85vw; /* Make mask slightly wider than backdrop */
+  --detail-page-content-offset: -65vh; /* Vertical offset for content */
+  --overflow-card-margin-left: 0vw; /* Left margin for the first overflow card */
+  --overflow-portrait-width: 7.5vw; /* Width for portrait overflow cards */
+  --overflow-backdrop-width: 8.5vw; /* Width for backdrop overflow cards */
+  --episode-grid-gap: 1.5rem; /* Gap between items in the episode grid */
+  --episode-grid-padding: 1rem; /* Padding around the episode grid */
+  --episode-grid-min-item-width: 200px; /* Minimum width for episode grid items */
+  --button-icon-only-size: 3.125rem; /* Size (width/height) for icon-only buttons */
+  --button-play-padding: 0.5rem 1rem; /* Padding for the play button */
+  --button-overlay-size: 26px; /* Size for small overlay buttons */
+  --button-overlay-icon-size: 16px; /* Icon size within small overlay buttons */
+  --button-episode-action-size: 32px; /* Size for episode action buttons */
+  --button-episode-action-icon-size: 18px; /* Icon size for episode action buttons */
+  --track-selection-max-width: 20vw; /* Max width for track selection popup */
+  --track-selection-min-width: 160px; /* Min width for track selection popup */
+
+  /* --- Toggles (Control display of certain elements) --- */
+  /* Set to 'none' to hide, or an appropriate display value (block, flex, inline-block) to show */
+  --display-header-warning: none;
+  --display-original-title: block;
+  --display-external-links: none;
+  --display-tomato-rating: none;
+  --display-age-rating: none;
+  --display-imdb-logo: none;
+  --display-star-rating: none;
+  --display-critic-rating: none;
+  --display-movie-trailer-tab: none;
+}
+
+/* ======================================== */
+/* === GLOBAL STYLES === */
+/* ======================================== */
+
+html {
+  box-sizing: border-box;
+  font-family: var(--font-family-base) !important;
+  margin: 0;
+  padding: 0;
+  background-color: var(--theme-background-color);
+}
+
+*,
+*::before,
+*::after {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+}
+
+.preload {
+  background-color: var(--theme-background-color);
+}
+
+/* ======================================== */
+/* === CORE UI ELEMENTS === */
+/* (Header, Drawer, Action Sheets, Form Elements) */
+/* ======================================== */
+
+/* --- Header, Action Sheet, Main Drawer --- */
+.skinHeader,
+.actionSheet,
+.mainDrawer,
+select:enabled,
+option {
+  background-color: var(--header-bg);
+  backdrop-filter: var(--blur-effect) !important;
+  -webkit-backdrop-filter: var(--blur-effect) !important;
+}
+
+.mainDrawer {
+  background-color: var(--sidebar-bg);
+}
+
+.skinHeader,
+.actionSheet,
+.mainDrawer {
+  border-style: solid;
+  border-width: var(--border-width);
+  border-color: var(--border-color-solid);
+  border-image-slice: 1;
+  border-image-source: var(--border-color);
+}
+
+.actionSheetContent {
+	background: rgba(0, 0, 0, 0.75);
+}
+
+.skinHeader { /* we don't want to round the header since it creates 1-2px holes at corners */
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-radius: 0px;
+}
+
+/* --- Header Warning/Announcement --- */
+.skinHeader::before {
+  content: "⚠️ put your cool announcement here";
+  display: var(--display-header-warning);
+  background-color: #222222;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 5px 0;
+  font-weight: var(--font-weight-normal);
+}
+
+/* --- Form Elements (Select/Option) --- */
+select:enabled,
+option {
+  border-style: solid;
+  border-width: var(--border-width);
+}
+
+/* --- Video Player OSD Header --- */
+.skinHeader-withBackground.osdHeader {
+  border: 0;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background: linear-gradient(180deg, hsla(0, 0%, 6%, .75), hsla(0, 0%, 6%, 0));
+  color: var(--theme-text-color);
+  height: 7.5em;
+  pointer-events: none;
+  position: relative;
+  transition: opacity .3s ease-out;
+  z-index: 1;
+}
+
+/* --- Element hiding --- */
+.selectVideoContainer { display: none !important; }
+.itemExternalLinks { display: var(--display-external-links) !important; }
+
+/* ======================================== */
+/* === CARDS === */
+/* ======================================== */
+
+/* --- Card Base --- */
+.cardBox {
+  background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+              var(--border-color) border-box;
+  border: var(--border-width) solid var(--border-color-solid);
+  border-radius: var(--theme-roundness-large);
+  box-shadow: var(--card-shadow);
+  padding: var(--card-padding);
+  transition: transform 0.3s ease-in-out;
+}
+
+.itemsContainer > .card > .cardBox:hover {
+  transform: translateY(-5px);
+}
+
+.cardImageContainer {
+  border-top-right-radius: var(--theme-roundness-large);
+  border-top-left-radius: var(--theme-roundness-large);
+}
+
+.cardBox:not(.visualCardBox) .cardPadder {
+  background-color: var(--transparent-bg);
+}
+
+/* --- Card Overlays & Content --- */
+.cardOverlayContainer,
+.cardContent:not(.dashboardSection .cardContent),
+.cardPadder:not(.dashboardSection .cardPadder), 
+.blurhash-canvas {
+  border-radius: var(--theme-roundness) !important;
+}
+
+.cardOverlayContainer {
+  background-color: var(--transparent-bg);
+  overlay: none;
+}
+
+.cardScalables,
+.cardPadder {
+  overlay: none;
+}
+
+.cardText {
+  font-size: var(--font-size-large);
+  padding: 1px;
+}
+
+.cardText-secondary {
+  font-size: var(--font-size-small);
+}
+
+/* --- Card Indicators (Played, Count, Media Source, etc.) --- */
+.countIndicator,
+.fullSyncIndicator,
+.mediaSourceIndicator,
+.playedIndicator {
+  backdrop-filter: var(--blur-effect) !important;
+  -webkit-backdrop-filter: var(--blur-effect) !important;
+  background-color: var(--indicator-bg) !important;
+  border-radius: var(--theme-roundness);
+}
+
+/* --- Card Progress Bar --- */
+.innerCardFooter > .itemProgressBar {
+  -webkit-backdrop-filter: var(--blur-effect);
+  backdrop-filter: var(--blur-effect);
+  background-color: var(--theme-black-alpha-med);
+  border-radius: var(--theme-roundness-progress);
+  margin-bottom: 10px;
+  margin-left: 20px;
+  overflow: hidden;
+  padding: 3px;
+  position: relative;
+  right: 10px;
+}
+
+.itemProgressBarForeground {
+  background-color: var(--theme-accent-color-alpha-high);
+  border-radius: var(--theme-roundness-progress);
+  z-index: 1;
+}
+
+/* --- Card Overlay Buttons (Small Icons, e.g., Add to Playlist) --- */
+.cardOverlayButton-br {
+  position: absolute;
+  bottom: unset !important;
+  right: unset !important;
+  top: 0.26rem;
+  left: 0.6rem;
+  display: flex;
+  gap: 0.3rem;
+  border-radius: 6px;
+  background-color: var(--theme-black-alpha-med);
+  z-index: 10;
+}
+
+[dir="ltr"] .cardOverlayButton-br {
+  left: 3%;
+}
+
+.cardOverlayButton {
+  background: var(--button-bg-overlay);
+  border-radius: 50%;
+  width: var(--button-overlay-size);
+  height: var(--button-overlay-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--theme-white-alpha-text-med);
+  border: none;
+  padding: 0;
+  font-size: var(--button-overlay-icon-size);
+  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+}
+
+.cardOverlayButton:hover {
+  background: var(--button-bg-overlay-hover);
+  color: var(--theme-white-alpha-text-high);
+}
+
+.cardOverlayButton .material-icons {
+  font-size: inherit;
+  line-height: 1;
+}
+
+/* --- FAB (Floating Action Button) Play Button on Cards --- */
+.cardOverlayFab-primary {
+  -webkit-backdrop-filter: var(--blur-effect);
+  backdrop-filter: var(--blur-effect);
+  background-color: var(--theme-accent-color);
+  opacity: 0.8;
+  border-style: solid;
+  border-width: var(--border-width-thick);
+  border-color: var(--border-color-solid);
+  border-image-source: var(--border-color);
+  border-image-slice: 1;
+  color: var(--theme-text-color);
+  transition: background-color 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.cardOverlayFab-primary:hover {
+  background-color: var(--theme-accent-color-alpha-hover);
+  opacity: 1.0;
+}
+
+/* --- Larger Play/More Info Buttons inside Card Overlays --- */
+.cardOverlayButtonIcon-hover.play_arrow {
+  font-size: 1.1em !important;
+  width: 1.1em !important;
+  height: 1.1em !important;
+  line-height: 1.2em !important;
+}
+
+.cardOverlayButton.cardOverlayButton-hover.itemAction .material-icons {
+  font-size: 1.4em !important;
+}
+
+.cardOverlayButton.cardOverlayButton-hover.itemAction {
+  transform: scale(0.8) !important;
+  transform-origin: center center !important;
+  padding: 2px !important;
+}
+
+/* ======================================== */
+/* === ITEM DETAILS PAGE === */
+/* ======================================== */
+
+/* --- Layout Containers --- */
+.detailPagePrimaryContainer {
+  background-color: var(--transparent-bg);
+  display: inline-table;
+  left: var(--detail-page-side-padding);
+  padding-left: var(--detail-page-side-padding);
+  z-index: 2; /* Above backdrop/mask */
+  position: relative;
+}
+
+.mainDetailButtons { /* Container for main action buttons (Play, Favorite, etc.) */
+  display: flex;
+  align-items: center;
+  margin: unset !important;
+  position: relative;
+  left: -18px;
+}
+
+.layout-desktop .detailPageContent {
+  padding-left: var(--detail-page-side-padding);
+}
+
+.layout-desktop .detailPagePrimaryContent {
+  width: var(--detail-page-primary-width);
+}
+
+.layout-desktop .detailPageSecondaryContainer {
+  background-color: var(--transparent-bg);
+  padding-top: 0 !important; /* remove padding between buttons and description on a show page */
+}
+
+.layout-desktop .itemDetailsGroup {
+  margin-top: 0;
+}
+
+/* --- Backdrop, Logo & Mask --- */
+.layout-desktop .detailLogo {
+  background-position: top left;
+  left: var(--detail-page-side-padding);
+  top: 16vh;
+  position: absolute;
+  z-index: 3;
+}
+
+.layout-desktop .itemBackdrop {
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+}
+
+.layout-desktop .backgroundContainer.withBackdrop {
+  background: url("https://raw.githubusercontent.com/prism2001/finity/main/assets/mask.png");
+  background-size: cover;
+  height: 100vh;
+  left: var(--detail-page-mask-offset);
+  position: absolute;
+  top: 0;
+  width: var(--detail-page-mask-width);
+  z-index: 1; /* Between backdrop and content */
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+.layout-desktop .detailPageWrapperContainer {
+  margin-top: var(--detail-page-content-offset);
+  position: relative;
+  z-index: 2; /* Ensure content is above mask */
+}
+
+/* --- Element Hiding on Detail Page --- */
+.layout-desktop .detailImageContainer .card {
+  display: none;
+}
+
+/* --- Text & Titles --- */
+.layout-desktop .itemName {
+  font-weight: var(--font-weight-normal);
+}
+
+h2 { /* General H2 styling */
+  font-weight: var(--font-weight-bold);
+}
+
+.section0 > h2:nth-child(1) {
+  text-shadow: var(--text-shadow-continue-watching);
+}
+
+.itemName.originalTitle {
+  margin: .2em 0 .2em;
+  font-size: var(--font-size-small);
+  display: var(--display-original-title) !important;
+}
+
+/* --- Overview Link ("More") --- */
+.layout-desktop a.overview-expand.emby-button {
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Sidebar Headers --- */
+.sidebarHeader {
+  font-size: 1em;
+  margin: 1em 0 .5em;
+  font-weight: var(--font-weight-bold);
+}
+
+/* fix play arrow alignment on cards */
+span.material-icons.cardOverlayButtonIcon.cardOverlayButtonIcon-hover.play_arrow {
+  left: -5.5px;
+}
+
+.tagline {
+	font-size: 1.17em;
+	font-weight: 500;
+	font-style: italic;
+}
+
+/* admin dashboard: orange restart button */
+#btnRestartServer {
+  background: #bb7a4a;
+}
+
+/* --- Pill-style Groups (Genres, Tags, etc.) --- */
+.itemDetailsGroup { /* Container for a group like "Genres: Action, Adventure" */
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+/* --- Pill-style Groups (Genres, Tags, etc.) --- */
+.itemDetailsGroup { /* Container for a group like "Genres: Action, Adventure" */
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.itemDetailsGroup .label { /* e.g., "Genres:" */
+  font-weight: var(--font-weight-semibold);
+  color: var(--theme-text-color);
+  padding-right: 0.5rem;
+  display: inline;
+}
+
+.itemDetailsGroup .content { /* Container for the actual pills/links */
+  font-size: 0 !important;
+  display: inline;
+}
+
+.itemDetailsGroup .content a { /* Individual pill/link */
+  display: inline-block;
+  font-size: 0.75rem !important;
+  font-weight: var(--font-weight-normal) !important;
+  background: var(--button-bg-subtle) !important;
+  padding: 3px 6px !important;
+  margin: 2px 4px 2px 0;
+  border-radius: var(--theme-roundness) !important;
+  color: inherit !important;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease-out;
+}
+
+.itemDetailsGroup .content a:hover {
+  background: var(--button-bg-subtle-hover) !important;
+}
+
+/* --- Collapsible Tags (Hover to reveal) --- */
+.itemTags {
+  position: relative;
+  display: block;
+  margin: 0.7em 0 !important;
+  color: transparent !important;
+  line-height: 0;
+  cursor: pointer;
+  user-select: none;
+  max-height: 1.5em;
+  overflow: hidden;
+  padding-bottom: 20px;
+  transition: max-height 0.3s ease-out;
+}
+
+.itemTags::before {
+  content: "Hover to show tags ▸";
+  display: inline-block;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  font-weight: var(--font-weight-semibold);
+  color: var(--theme-text-color);
+}
+
+.itemTags > a.button-link { /* Individual tag link style */
+  opacity: 0;
+  font-size: 0.75rem !important;
+  line-height: normal;
+  background: var(--button-bg-subtle) !important;
+  padding: 3px 6px !important;
+  border-radius: var(--theme-roundness) !important;
+  margin: 0.25rem 0.5rem 0.25rem 0 !important;
+  color: var(--theme-text-color) !important;
+  text-decoration: none !important;
+  pointer-events: none;
+  display: inline-block;
+  transition: opacity 0.3s ease-out, background-color 0.2s ease-out;
+}
+
+.itemTags:hover {
+  line-height: normal;
+  max-height: 20em;
+}
+
+.itemTags:hover::before {
+  content: "Tags ▾";
+}
+
+.itemTags:hover > a.button-link {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.itemTags:hover > a.button-link:hover {
+  background: var(--button-bg-subtle-hover) !important; /* Hover effect for individual tags */
+}
+
+/* --- Cast & "More Like This" Sections --- */
+#castContent .cardOverlayButton-br {
+	bottom: 4%;
+	right: 15%;
+	width: 20%;
+	top: 2px;
+	left: 5px;
+}
+
+#castContent .cardOverlayButton.cardOverlayButton-hover.itemAction.paper-icon-button-light {
+  margin: auto;
+}
+
+#castContent .focusable,
+.similarCollapsible .itemsContainer.scrollSlider .focusable {
+  transform: scale(0.8) !important;
+  transform-origin: top left !important;
+  margin-right: 8px !important;
+}
+
+/* --- Context Popup (e.g., three-dot menu) --- */
+.focuscontainer {
+  background-color: var(--theme-black-alpha-high);
+}
+
+/* Bottom-left toast popups */
+.toast.toastVisible {
+  background-color: var(--header-bg); /* Default for header-like elements */
+  backdrop-filter: var(--blur-effect) !important;
+  -webkit-backdrop-filter: var(--blur-effect) !important;
+}
+
+/* --- Plot/Description Text --- */
+div.detailPageContent div.detailSectionContent p, /* General paragraph in detail section */
+.plot { /* Specifically the plot */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.detail-clamp-text { /* Clamped description text */
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 12;
+  margin: unset !important; /* remove even more padding between description */
+}
+
+.itemGenres { /* Explicitly hide the .itemGenres if tags are used or it's redundant */
+  display: none;
+}
+
+/* Play button text and alignment in mainDetailButtons */
+.mainDetailButtons .material-icons.play_arrow::after {
+  content: "Play";
+  font-family: 'Rubik';
+  font-size: 16px;
+  position: absolute;
+  bottom: 16px; 
+  width: inherit;
+  right: -42px;
+}
+
+.material-icons.play_arrow:before { /* Icon itself */
+  margin-left: 10px;
+}
+
+.button-flat.btnPlay.detailButton.emby-button,
+.material-icons.detailButton-icon.play_arrow { /* Styling for the play button and its icon */
+  text-align: left;
+  width: 85px;
+}
+
+.detailButton-content,
+.button-flat.btnPlay.detailButton.emby-button { /* Ensure content within the button is left-aligned */
+  justify-content: flex-start;
+}
+
+
+/* ======================================== */
+/* === LISTS & MENUS === */
+/* ======================================== */
+
+/* --- General List Item Hover --- */
+.listItem {
+  transition: 0.3s all ease-in-out;
+}
+
+.listItem:hover {
+  background-color: var(--theme-accent-color-alpha-med);
+  -webkit-backdrop-filter: var(--blur-effect);
+  backdrop-filter: var(--blur-effect);
+}
+
+/* --- Menu Item Hover (Action Sheets, Nav Menu) --- */
+.actionSheetMenuItem:hover,
+.navMenuOption:hover {
+  background-color: var(--theme-accent-color-alpha-med);
+}
+
+/* --- Paper List Container (e.g., settings sections) --- */
+.paperList {
+  border-radius: var(--theme-roundness-xlarge);
+}
+
+/* --- Main Drawer (Sidebar) Padding --- */
+.mainDrawer-scrollContainer {
+  padding-top: 6vh;
+}
+
+/* --- Episode List Item Image (Legacy/Non-Grid View) --- */
+.listItemImage-large { /* Used for larger images in list views */
+  background-position: 50%;
+  height: 13vw;
+  margin-right: 0.23em;
+  width: 19.5vw;
+}
+
+/* ======================================== */
+/* === VIDEO PLAYER & SUBTITLES === */
+/* ======================================== */
+
+video.htmlvideoplayer::cue {
+  font-family: var(--font-family-video-cue) !important;
+  color: white !important;
+  text-shadow: var(--text-shadow-video-cue) !important;
+}
+
+/* --- Track Selection Popup (Audio/Subtitle Choice) --- */
+.trackSelections {
+  max-width: var(--track-selection-max-width);
+  min-width: var(--track-selection-min-width);
+  backdrop-filter: var(--blur-effect);
+  border-radius: var(--theme-roundness);
+  padding: 0.5rem;
+}
+
+/* ======================================== */
+/* === EPISODE GRID VIEW === */
+/* ======================================== */
+
+/* --- Grid Container --- */
+#childrenContent .itemsContainer.vertical-list,
+#childrenCollapsible .childrenItemsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--episode-grid-min-item-width), 1fr));
+  gap: var(--episode-grid-gap);
+  padding: var(--episode-grid-padding);
+}
+
+/* --- Individual Episode Item --- */
+.listItem.listItem-largeImage {
+  content-visibility: auto;
+  contain-intrinsic-size: var(--episode-grid-min-item-width) 280px;
+  display: block;
+  background: var(--episode-grid-bg);
+  border-radius: var(--theme-roundness);
+  overflow: hidden;
+  height: auto;
+  transition: background-color 0.2s ease-out;
+}
+
+.listItem.listItem-largeImage:hover {
+  background-color: color-mix(in srgb, var(--episode-grid-bg) 90%, white);
+}
+
+/* --- Inner Content Wrapper for Grid Item --- */
+.listItem.listItem-largeImage .listItem-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto !important;
+  width: 100%;
+  padding: 0;
+}
+
+/* --- Episode Thumbnail --- */
+.listItem.listItem-largeImage .listItemImage {
+  width: 100% !important;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center center;
+  position: relative;
+  margin-bottom: 0.5rem;
+  border-radius: var(--theme-roundness);
+  overflow: hidden;
+}
+
+/* --- Watched Indicator on Thumbnail --- */
+.listItem.listItem-largeImage .indicators { /* Container for indicators like 'played' */
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 3; /* Above thumbnail image */
+}
+
+.listItem.listItem-largeImage .playedIndicator {
+  border-radius: 50%; /* Make played indicator circular */
+}
+
+/* --- Thumbnail Overlay Buttons (Play, More) --- */
+.listItemImageButton { /* Common style for buttons appearing on thumbnail hover */
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  position: absolute;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 50%;
+  width: var(--button-overlay-size);
+  height: var(--button-overlay-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--theme-white-alpha-text-med);
+  border: none;
+  padding: 0;
+  font-size: var(--button-overlay-icon-size);
+}
+
+.listItemImageButton:hover {
+  background: var(--button-bg-overlay-hover);
+  color: var(--theme-white-alpha-text-high);
+}
+
+.listItemImageButton .material-icons {
+  font-size: inherit;
+  line-height: 1;
+}
+
+/* Positioning for specific overlay buttons */
+.listItemImageButton[data-action="play"],
+.listItemImageButton[data-action="resume"] {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: calc(var(--button-overlay-size) * 1.5);
+  height: calc(var(--button-overlay-size) * 1.5);
+  font-size: calc(var(--button-overlay-icon-size) * 1.5);
+}
+
+.listItemImageButton[data-action="menu"] {
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+
+/* Show buttons on thumbnail hover */
+.listItem.listItem-largeImage .listItemImage:hover .listItemImageButton {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.listItem.listItem-largeImage .listItemImage:hover .listItemImageButton[data-action="play"],
+.listItem.listItem-largeImage .listItemImage:hover .listItemImageButton[data-action="resume"] {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* --- Episode Title Block (Below Thumbnail) --- */
+.listItem.listItem-largeImage .listItemBody {
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- Episode Title Text --- */
+.listItem.listItem-largeImage .listItemBody > .listItemBodyText:first-child {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--theme-text-color-secondary) !important;
+  line-height: 1.3;
+  width: 100%;
+  padding: 0 5px;
+  box-sizing: border-box;
+  text-align: center;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  max-height: calc(1.3 * 3em);
+  min-height: calc(1.3 * 3em);
+  cursor: pointer;
+}
+
+
+/* --- Episode Action Buttons Container (Below Title) --- */
+.listItem.listItem-largeImage .listViewUserDataButtons {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0;
+}
+
+/* --- Individual Episode Action Buttons (e.g., Played, Info) --- */
+.listItem.listItem-largeImage .listViewUserDataButtons .listItemButton {
+  position: relative;
+  background: var(--button-bg-overlay);
+  border-radius: 50%;
+  width: var(--button-episode-action-size);
+  height: var(--button-episode-action-size);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--theme-white-alpha-text-low);
+  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+}
+
+.listItem.listItem-largeImage .listViewUserDataButtons .listItemButton:hover {
+  background: var(--button-bg-overlay-hover);
+  color: var(--theme-white-alpha-text-high);
+}
+
+.listItem.listItem-largeImage .listViewUserDataButtons .listItemButton .material-icons {
+  font-size: var(--button-episode-action-icon-size);
+  line-height: 1;
+}
+
+/* --- Episode Action Button Tooltips --- */
+.listItem.listItem-largeImage .listViewUserDataButtons .listItemButton::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--tooltip-bg);
+  color: var(--theme-text-color);
+  padding: 4px 8px;
+  border-radius: var(--theme-roundness);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+  transition-delay: 0.3s;
+}
+
+/* Fallback content for tooltips if title attribute is missing */
+.listItem.listItem-largeImage .listViewUserDataButtons .listItemButton[data-action="link"]::after { content: "Details"; }
+.listItem.listItem-largeImage .listViewUserDataButtons .listItemButton[data-action="menu"]::after { content: "More"; }
+
+.listItem.listItem-largeImage .listViewUserDataButtons .listItemButton:hover::after {
+  opacity: 1; /* Show tooltip on hover */
+  visibility: visible;
+}
+
+/* --- Hide Unwanted Info in Episode Grid --- */
+.listItem.listItem-largeImage .listItem-overview,
+.listItem.listItem-largeImage .listItem-bottomoverview,
+.listItem.listItem-largeImage .listItemMediaInfo,
+.listItem.listItem-largeImage .mediaSourceIndicator {
+  display: none !important; /* Remove elements not suitable for grid view */
+}
+
+/* ======================================== */
+/* === MISCELLANEOUS & OVERRIDES === */
+/* ======================================== */
+
+/* --- Overflow Scroll Containers (Sliders) --- */
+.overflowBackdropCard[data-index="0"],
+.overflowPortraitCard[data-index="0"],
+.overflowSquareCard[data-index="0"] { /* First card in a slider */
+  margin-left: var(--overflow-card-margin-left);
+}
+
+.overflowPortraitCard,
+.overflowSquareCard { /* Portrait and square cards in sliders */
+  width: var(--overflow-portrait-width);
+}
+
+.overflowBackdropCard,
+.overflowSmallBackdropCard { /* Backdrop cards in sliders */
+  width: var(--overflow-backdrop-width);
+}
+
+/* --- General Button / Icon Hover Effects --- */
+@media (hover: hover) and (pointer: fine) {
+  .paper-icon-button-light:hover:not(:disabled) {
+    background-color: var(--theme-accent-color-alpha-low);
+    color: var(--theme-accent-color-alpha-hover);
+  }
+}
+
+/* --- Raised Buttons/Elements (Pill Shape) --- */
+.raised {
+  border-radius: var(--theme-roundness-full);
+}
+
+/* --- Specific Button Colors --- */
+#btnShutdown { /* Shutdown button */
+  background-color: var(--theme-warning-color) !important;
+}
+
+/* --- Slider Element --- */
+.sliderContainer {
+  height: 1em;
+}
+
+/*  Center specific context menus (e.g., Cast, SyncPlay) and adjust their width */
+.dialogContainer .focuscontainer.dialog.actionsheet-not-fullscreen.actionSheet.opened.centeredDialog:not(:has(button[data-id="edit"], button[data-id="delete"], button[data-id="addtocollection"], button[data-id="refresh"], button[data-id="download"])),
+.dialogContainer .focuscontainer.dialog.actionsheet-not-fullscreen.actionSheet.opened.syncPlayGroupMenu {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+    border-radius: var(--theme-roundness-large) !important;
+    background-color: var(--header-bg) !important;
+
+    height: auto;
+    max-height: 85vh;
+    overflow-y: auto;
+
+    /* --- Responsive Width --- */
+    /* Default for larger screens (tablets and desktops) */
+    width: clamp(340px, 35vw, 600px) !important;
+}
+
+/* Minor positioning tweaks for those context menus */
+.actionSheetText {
+	margin-top: 0;
+	margin-bottom: 1.2rem;
+	font-size: small;
+}
+.actionSheetText, .actionSheetTitle {
+	-webkit-flex-grow: 0;
+	flex-grow: 0;
+	padding: 0 1.25rem;
+  font-weight: 420
+}
+
+div.filterDialogContent div.emby-collapse div.collapseContent {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* Media query for smaller screens to adjust width for the targeted menus */
+@media (max-width: 767px) {
+    .dialogContainer .focuscontainer.dialog.actionsheet-not-fullscreen.actionSheet.opened.centeredDialog:not(:has(button[data-id="edit"], button[data-id="delete"], button[data-id="addtocollection"], button[data-id="refresh"], button[data-id="download"])),
+    .dialogContainer .focuscontainer.dialog.actionsheet-not-fullscreen.actionSheet.opened.syncPlayGroupMenu {
+        width: clamp(280px, 85vw, calc(100vw - 30px)) !important;
+        background-color: black;
+    }
+}
+
+
+div.listItem-content div.listItemImage.listItemImage-large.itemAction.lazy.non-blurhashable.lazy-image-fadein button.listItemImageButton.itemAction.paper-icon-button-light span.material-icons.listItemImageButton-icon.play_arrow {
+  left: -5.5px;
+}
+
+/* ======================================== */
+/* === RESPONSIVE ADJUSTMENTS === */
+/* ======================================== */
+
+/* --- Tablets and Up (min-width: 769px) --- */
+@media (min-width: 769px) {
+  :root {
+    --button-overlay-size: 28px;
+    --button-overlay-icon-size: 17px;
+  }
+  div.cardScalable button.cardOverlayButton.cardOverlayButton-br.itemAction.paper-icon-button-light span.material-icons.cardOverlayButtonIcon.play_arrow {
+    display: none;
+  }
+}
+
+/* --- Smaller Tablets (max-width: 1024px) --- */
+@media (max-width: 1024px) {
+  :root {
+    --episode-grid-min-item-width: 160px;
+    --track-selection-max-width: 40vw;
+    --track-selection-min-width: 140px;
+  }
+}
+
+/* --- Phones (max-width: 900px) --- */
+@media (max-width: 900px) {
+  :root {
+    --episode-grid-min-item-width: 140px;
+    --episode-grid-gap: 1rem;
+    --episode-grid-padding: 1rem;
+    --track-selection-max-width: 80vw;
+    --track-selection-min-width: 140px;
+    --overflow-portrait-width: 24vw;
+    --overflow-backdrop-width: 36vw;
+    --overflow-card-margin-left: 3vw;
+    --detail-page-primary-width: 90%;
+    --detail-page-content-offset: -75vh;
+  }
+  
+  /* hide play icons on cards and portraits as it's not really necessary on mobile */
+  div.itemsContainer.scrollSlider.focuscontainer-x div.card.overflowBackdropCard.card-withuserdata div.cardBox.cardBox-bottompadded div.cardScalable button.cardOverlayButton.cardOverlayButton-br.itemAction.paper-icon-button-light {
+    display: none;
+  }
+  div.card.overflowPortraitCard.card-withuserdata div.cardBox.cardBox-bottompadded div.cardScalable button.cardOverlayButton.cardOverlayButton-br.itemAction.paper-icon-button-light span.material-icons.cardOverlayButtonIcon.play_arrow {
+    display: none;
+  }
+  
+  /* add back a bit of padding to detail buttons*/
+  .mainDetailButtons {
+    padding-top: 20px;
+  }
+  
+  /* fix play button on show grid view */
+  div.listItem-content div.listItemImage.listItemImage-large.itemAction.lazy.non-blurhashable.lazy-image-fadein button.listItemImageButton.itemAction.paper-icon-button-light span.material-icons.listItemImageButton-icon.play_arrow {
+    left: -5.5px;
+    font-size: x-large;
+  }
+  .playedIndicator {
+    font-size: 125%;
+  }
+  
+  .layout-desktop .detailPagePrimaryContent {
+    width: var(--detail-page-primary-width);
+  }
+
+  .layout-desktop .detailLogo {
+    left: 3%;
+    top: 10vh;
+  }
+
+  .detailPagePrimaryContainer {
+    left: 3%;
+    padding-left: 3%;
+  }
+
+  /* Remove blur from header elements on smaller screens for performance/preference */
+  .skinHeader,
+  .actionSheet,
+  select:enabled,
+  option {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* --- Very Small Phones (max-width: 480px) --- */
+@media (max-width: 480px) {
+  :root {
+    --episode-grid-min-item-width: 120px;
+    --episode-grid-gap: 0.75rem;
+    --episode-grid-padding: 0.5rem;
+    --track-selection-max-width: 95vw;
+    --track-selection-min-width: 120px;
+    --overflow-portrait-width: 32vw;
+    --overflow-backdrop-width: 44vw;
+  }
+}
+
+/* self-tweak: remove blur on header */
+.skinHeader.semiTransparent,
+.skinHeader,
+.actionSheet,
+select:enabled,
+option {
+  background-color: var(--header-bg);
+  backdrop-filter: unset !important;
+  -webkit-backdrop-filter: unset !important;
+}
+
+.skinHeader .headerRight .paper-icon-button-light {
+	backdrop-filter: unset !important;
+	-webkit-backdrop-filter: unset !important;
+	background-color: transparent !important;
+}
