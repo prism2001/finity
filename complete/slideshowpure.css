@@ -1,0 +1,850 @@
+@import url(https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400..700;1,400..700&display=swap);
+
+/* Root and Global Styles */
+:root {
+  --theme-background-color: #181818;
+  --theme-text-color: #eee;
+  --button-bg-subtle: rgba(255, 255, 255, 0.1);
+  --button-bg-subtle-hover: rgba(255, 255, 255, 0.16);
+  --button-bg-play: rgba(255, 255, 255, 0.3);
+  --theme-roundness: 0.5rem;
+  --font-weight-normal: 400;
+  --button-icon-only-size: 3.125rem;
+  --button-play-padding: 0.5rem 1rem;
+  --display-tomato-rating: none; /* Toggled by JS or theme settings */
+  --display-age-rating: none;    /* Toggled by JS or theme settings */
+  --display-imdb-logo: none;     /* Toggled by JS or theme settings */
+  --display-star-rating: none;   /* Toggled by JS or theme settings */
+  --display-critic-rating: none; /* Toggled by JS or theme settings */
+}
+
+.slide,
+.slide * {
+  text-shadow: 0 0px 3px rgba(0, 0, 0, 2);
+}
+
+.preload {
+  background-color: var(--theme-background-color);
+}
+
+.featured-content {
+  display: none !important;
+}
+
+/* Animations */
+@keyframes scroll-vertical {
+  0%, 10% { transform: translateY(0); }
+  40%, 90% { transform: translateY(var(--scroll-amount)); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes frostedGlass {
+  from {
+    filter: blur(8px);
+    opacity: 0.7;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+@keyframes kenBurnsZoomIn {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+/* Marquee / Scrolling Text */
+.marquee-vertical {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.marquee-inner {
+  display: inline-block;
+  white-space: normal;
+  will-change: transform;
+}
+
+/* Loading Screen */
+.bar-loading {
+  z-index: 99999999 !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.bar-loading.hide {
+  opacity: 0;
+}
+
+.loader-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 250px;
+  height: auto;
+}
+
+.bar-loading h1 {
+  width: 250px;
+  margin: 0 auto;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bar-loading h1 img {
+  width: 250px;
+  max-height: 250px;
+  display: block;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.progress-container {
+  width: 200px;
+  height: 6px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.progress-bar {
+  height: 5px;
+  background: white;
+  border-radius: 2px;
+  transition: width 0.2s ease-in-out;
+}
+
+.progress-gap {
+  width: 6px;
+  height: 5px;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.unfilled-bar {
+  height: 5px;
+  background: #686868;
+  border-radius: 2px;
+  flex-grow: 1;
+  transition: width 0.2s ease-in-out;
+}
+
+.mdl-spinner__circle {
+  border-width: 8px;
+}
+
+.homeSectionsContainer {
+  position: relative;
+  top: 65vh; /* Default, adjusted in landscape mobile */
+  z-index: 6;
+}
+
+/* Slide Structure and Appearance */
+.slide {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 0;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.slide.active.slideshow-paused .backdrop.animate {
+  animation-play-state: paused;
+}
+
+/* Backdrop and Overlays */
+.backdrop-container {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  width: 100%;
+  height: 91%;
+  mask-image: linear-gradient(to top, #fff0 2%, rgb(0 0 0 / 0.5) 6%, #000000 8%);
+  -webkit-mask-image: linear-gradient(to top, #fff0 2%, rgb(0 0 0 / 0.5) 6%, #000000 8%);
+}
+
+.backdrop {
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 5px;
+  z-index: 3;
+  mask-image: linear-gradient(to top, #fff0 2%, rgb(0 0 0 / 0.5) 6%, #000000 8%);
+  -webkit-mask-image: linear-gradient(to top, #fff0 2%, rgb(0 0 0 / 0.5) 6%, #000000 8%);
+}
+
+.backdrop.low-quality {
+  filter: blur(0.5px);
+  transform: scale(1.01);
+  transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.backdrop.high-quality {
+  filter: blur(0);
+  transform: scale(1);
+  transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.backdrop.animate {
+  animation: frostedGlass 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+    kenBurnsZoomIn 10s ease-out forwards;
+}
+
+.backdrop-overlay,
+.gradient-overlay { /* Shared properties for overlays */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  mask-image: linear-gradient(to top, #fff0 2%, rgb(0 0 0 / 0.5) 4%, #000000 6%);
+  -webkit-mask-image: linear-gradient(to top, #fff0 2%, rgb(0 0 0 / 0.5) 4%, #000000 6%);
+}
+
+.backdrop-overlay {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.gradient-overlay {
+  background: linear-gradient(
+    130deg,
+    rgba(29, 29, 29, 0.65) 10%,
+    rgba(29, 29, 29, 0.35) 30%,
+    rgba(29, 29, 29, 0) 100%
+  );
+}
+
+/* Logo */
+.logo-container {
+  width: 40%; /* Default, adjusted in media queries */
+  height: 35%; /* Default, adjusted in media queries */
+  position: absolute;
+  display: flex;
+  align-items: center; /* Default, adjusted in media queries */
+  z-index: 5;
+  bottom: calc(50% + 1vh); /* Default, adjusted in media queries */
+  left: 4vw; /* Default, adjusted in media queries */
+}
+
+.logo {
+  max-height: 70%; /* Default, adjusted in media queries */
+  max-width: 100%; /* Default, adjusted in media queries */
+  position: absolute; /* Default, adjusted in media queries */
+  bottom: 7vh; /* Default, adjusted in media queries */
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.5); /* Default, can be adjusted if .low-quality/.high-quality applies */
+  transition: filter 0.3s ease-in-out; /* Combined from .low-quality/.high-quality */
+}
+
+.logo.low-quality {
+  filter: brightness(1) blur(0.5px);
+}
+
+.logo.high-quality {
+  filter: brightness(1.1) blur(0); /* Overrides brightness(1.5) when high quality loads */
+}
+
+.logo.animate {
+  animation: frostedGlass 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Title, Plot, Genre */
+.slide-title {
+  position: absolute;
+  display: flex;
+  top: calc(50% - 5vh);
+  left: 4vw;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  z-index: 5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+
+.plot-container {
+  position: absolute;
+  top: calc(50% + 6vh); /* Default, adjusted by later rule and media queries */
+  left: 4vw; /* Default, adjusted in media queries */
+  width: 90%;
+  height: 15%;
+  color: #fff;
+  z-index: 5;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: justify;
+  box-sizing: border-box;
+}
+
+.plot {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Default, overridden by a.slide .plot-container .plot */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: nowrap; /* Default, overridden by a.slide .plot-container .plot */
+  position: relative;
+  color: #fff;
+  /* height and width adjusted in media queries */
+}
+
+.plot a {
+  color: pink;
+}
+
+.plot a:hover,
+.plot a:active {
+  opacity: 0.8;
+  color: #fff;
+}
+
+a.slide .plot-container .plot {
+  white-space: normal !important;
+  word-break: break-word !important;
+  max-width: 50vw !important;
+  max-height: fit-content !important;
+  line-height: 1.4 !important;
+  -webkit-line-clamp: 3 !important; /* Overrides default of 2 */
+}
+
+.genre {
+  position: absolute;
+  top: calc(50% + 4vh); /* Default, adjusted by later rule and media queries */
+  left: 4vw; /* Default, adjusted in media queries */
+  text-align: center; /* Default, overridden in media queries */
+  color: #fff;
+  font-family: "Rubik", sans-serif;
+  z-index: 5;
+  font-weight: 500; /* From a later rule */
+}
+
+/* Navigation Arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  cursor: pointer;
+  color: #fff;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-tap-highlight-color: #fff0;
+}
+
+.left-arrow {
+  left: 20px;
+}
+
+.right-arrow {
+  right: 20px;
+}
+
+/* Navigation Dots */
+.dots-container {
+  position: absolute;
+  top: calc(50% + 18vh); /* Default, adjusted by later rule and media queries */
+  right: 3%; /* Default, adjusted in media queries */
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;  /* Merged from later .dot rule */
+  height: 8px; /* Merged from later .dot rule */
+  margin: 0 5px;
+  background-color: #CCCCCC; /* Merged from later .dot rule, was #cecece99 */
+  border-radius: 50%;
+  transform-origin: center;
+  cursor: pointer; /* Merged from later .dot rule */
+  transition: transform 0.03s ease-in-out, background-color 0.03s ease-in-out; /* Merged from later .dot rule */
+}
+
+.dot:hover { /* Merged from later .dot:hover rule */
+  transform: scale(1.3);
+  background-color: #E0E0E0;
+}
+
+.dot.active {
+  background-color: #F0F0F0; /* Merged from later .dot.active rule, was #fff */
+  transform: scale(1.7);
+}
+
+.dot.active:hover { /* Merged from later .dot.active:hover rule */
+  transform: scale(1.7);
+  background-color: #FFFFFF;
+}
+
+
+/* Action Buttons (General Container and Individual) */
+.button-container {
+  position: absolute;
+  top: calc(50% + 17vh); /* Initial, gets overridden by more specific .button-container later */
+  left: 4vw; /* Initial, gets overridden by more specific .button-container later */
+  display: flex; /* Overridden by inline-flex in more specific .button-container */
+  z-index: 5;
+  justify-content: space-between; /* Overridden by align-items in more specific .button-container */
+  gap: 15px; /* Overridden by 0.5rem in more specific .button-container */
+}
+
+/* More specific .button-container rules that take precedence */
+.button-container { /* Shared container for play, detail, favorite buttons */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  top: calc(50% + 4vh); /* This will be the effective top for this group */
+  /* left: 4vw; is inherited from above if not specified here, but media queries change it */
+}
+
+.button-container button { /* Common base style for buttons within this specific container */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--theme-roundness);
+  background-color: var(--button-bg-subtle);
+  color: var(--theme-text-color);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  position: relative;
+  border: none;
+  transition: background-color 0.2s ease-out;
+  -webkit-tap-highlight-color: #fff0; /* Applied from individual button styles */
+}
+
+/* Individual button styles that were previously separate */
+.play-button { /* This is the general .play-button, specific styling in .button-container .play-button */
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px; /* Overridden by var(--button-play-padding) in specific context */
+  border: solid 0px rgba(255, 255, 255, 0);
+  font-family: "Rubik", sans-serif;
+  font-size: 18px; /* Overridden by icon font-size in specific context */
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Overridden by background-color transition in specific context */
+  font-weight: 700; /* Overridden by var(--font-weight-normal) for icon in specific context */
+  gap: 6px; /* Overridden by 0rem in specific context */
+  -webkit-tap-highlight-color: #fff0;
+}
+
+.detail-button,
+.favorite-button { /* General styles for these, specific ones in .button-container context */
+  font-size: 18px; /* Overridden by icon font-size in specific context */
+  border-radius: 50%; /* Overridden by var(--theme-roundness) in specific context */
+  height: 50px; /* Overridden by var(--button-icon-only-size) in specific context */
+  width: 50px; /* Overridden by var(--button-icon-only-size) in specific context */
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s; /* Overridden by background-color transition in specific context */
+  -webkit-tap-highlight-color: #fff0;
+}
+
+.detail-button {
+  color: rgb(0, 0, 0); /* Overridden by var(--theme-text-color) in specific context */
+}
+
+.favorite-button {
+  color: red; /* Overridden by var(--theme-text-color) for icon, color red only when .favorited */
+}
+
+.favorite-button.favorited {
+  color: red; /* Ensures icon remains red when favorited */
+}
+
+/* Specific button styles within the .button-container */
+.button-container .favorite-button,
+.button-container .detail-button {
+  width: var(--button-icon-only-size);
+  height: var(--button-icon-only-size);
+  min-width: var(--button-icon-only-size);
+  padding: 0;
+}
+
+.button-container .play-button {
+  padding: var(--button-play-padding);
+  gap: 0rem;
+  min-width: auto;
+  width: auto;
+  height: var(--button-icon-only-size);
+  background-color: var(--button-bg-play) !important;
+  border-radius: var(--theme-roundness) !important;
+}
+
+/* Hover states for buttons in .button-container */
+.button-container .favorite-button:hover,
+.button-container .detail-button:hover,
+.button-container .play-button:hover {
+  background-color: var(--button-bg-subtle-hover) !important;
+  opacity: 1; /* Overriding the generic .play-button:hover opacity: 0.8 */
+}
+.play-button:hover, /* General hover, less specific */
+.detail-button:hover,
+.favorite-button:hover {
+  opacity: 0.8; /* This will only apply if not inside .button-container */
+}
+
+
+/* Button Icons (::before pseudo-elements) */
+.play-button::before,
+.detail-button::before,
+.favorite-button::before { /* Base for all three, specific content below */
+  display: inline-block;
+  vertical-align: middle;
+  font-family: "Material Icons";
+  font-size: 1.6em; /* From later rule, was 22px initially */
+  line-height: 1; /* From later rule */
+  font-weight: var(--font-weight-normal); /* From later rule, was 600 initially */
+  color: inherit;
+}
+
+.play-button::before {
+  content: "play_arrow";
+  margin-right: 0.5rem; /* From later rule, specific to play button if it has text */
+}
+
+.detail-button::before {
+  content: "info"; /* From later rule, was "info_outline" initially */
+}
+
+.favorite-button::before { /* Default to filled for .button-container context, outline otherwise */
+  content: "favorite_outline"; /* Initial, overridden for .button-container context */
+}
+.button-container .favorite-button::before {
+  content: "favorite"; /* Default for buttons inside this specific container */
+}
+.favorite-button.favorited::before {
+  content: "favorite"; /* Ensures filled heart when favorited, regardless of context */
+}
+
+
+/* Slideshow Pause/Play Button */
+#slideshow-pause-button {
+  position: absolute;
+  top: calc(50% + 18vh);
+  right: calc(2.5% + 65px);
+  z-index: 6;
+  background-color: rgba(255,255,255,0.1);
+  color: white;
+  border: none;
+  border-radius: var(--theme-roundness); /* From an earlier rule, overridden by fixed px later if not careful */
+  width: 40px; /* One of several definitions */
+  height: 40px; /* One of several definitions */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#slideshow-pause-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#slideshow-pause-button .material-icons {
+  font-size: 28px;
+}
+
+
+/* Info Container and Elements (Ratings, Runtime, Date) */
+.info-container {
+  position: absolute;
+  top: calc(50% + 0vh); /* Default, adjusted in media queries */
+  left: 4vw; /* Default, adjusted in media queries */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Default, overridden in media queries */
+  color: #fff;
+  z-index: 5;
+  align-content: center;
+  flex-wrap: wrap;
+  font-weight: 500;
+}
+
+.rating-value,
+.runTime,
+.date { /* Common styles for info items */
+  font-family: "Rubik", sans-serif;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.rating-value {
+  z-index: 5; /* Explicitly set, though inherited */
+  position: relative; /* Explicitly set, though default */
+}
+
+.runTime,
+.date,
+.age-rating, /* age-rating shares some layout properties */
+.separator-icon {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.runTime, .date, .imdb-logo, .tomato-logo, .critic-logo { /* Shared flex properties */
+  display: flex; /* Repetitive, but ensures applied */
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; /* may not be needed if items are small */
+  align-content: center; /* for multi-line flex items */
+}
+
+.tomato-rating {
+  display: var(--display-tomato-rating) !important; /* Controlled by variable */
+  align-items: center;
+  margin-left: 0; /* Specific to tomato-rating */
+}
+
+.imdb-logo {
+  display: var(--display-imdb-logo) !important; /* Controlled by variable */
+  margin-right: 1px; /* Specific to imdb-logo */
+}
+.imdb-logo+span { /* If text follows the IMDB logo */
+    display: var(--display-imdb-logo) !important;
+}
+
+.tomato-logo {
+  margin-left: 5px; /* Specific to tomato-logo */
+}
+
+.critic-logo {
+  margin-right: 5px; /* Specific to critic-logo */
+}
+.starRatingContainer.mediaInfoItem {
+    display: var(--display-star-rating) !important; /* Controlled by variable */
+}
+.mediaInfoCriticRating {
+    display: var(--display-critic-rating) !important; /* Controlled by variable */
+}
+
+.age-rating {
+  display: var(--display-age-rating) !important; /* Controlled by variable */
+  border-radius: 5px;
+  background: rgb(255 255 255 / 0.8);
+  color: #000;
+  border: none;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 0 0.5em;
+}
+
+.separator-icon {
+  font-size: 10px;
+  color: aquamarine;
+}
+
+/* Conditional display of separators based on sibling visibility (IMDB as primary check) */
+.imdb-logo+.separator-icon,
+.tomato-rating+.separator-icon,
+.age-rating+.separator-icon,
+.imdb-logo+span+.separator-icon {
+  display: var(--display-imdb-logo) !important; /* Simplification: if IMDB is shown, separators might be relevant */
+}
+
+
+/* General Adjustments (from later in the file, applied to defaults if not media query specific) */
+.dots-container {
+  top: calc(50% + 16vh); /* Overrides previous default */
+}
+
+.genre {
+  top: calc(50% + 10.5vh); /* Overrides previous default */
+}
+
+.plot-container {
+  top: calc(50% + 12vh); /* Overrides previous default */
+}
+
+
+/* Media Queries */
+
+/* Landscape Phones (General Adjustments) */
+@media only screen and (max-height: 767px) and (orientation: landscape) {
+  #slides-container {
+    height: 100%;
+  }
+  .homeSectionsContainer {
+    top: 57vh;
+  }
+  .button-container { /* Applies to the specific .button-container group */
+    left: 3vw;
+    top: 30vw; /* This is quite high, ensure it's intended */
+    transform: scale(0.85);
+  }
+  .dots-container {
+    scale: 0.6; /* Using scale like this is modern, ensure browser compatibility if older needed */
+    top: calc(50% + 20vh); /* Added from a later similar media query block for this element */
+  }
+  #slideshow-pause-button {
+    right: calc(3% + 70px); /* Adjusted from one variant */
+    top: calc(50% + 20vh);   /* From its own block and a later one */
+    transform: scale(0.85);  /* From its own block and a later one */
+    left: auto; /* Ensure right positioning takes precedence */
+     /* An earlier rule specified: right: calc(3% + 50px); transform: scale(0.8); top: calc(50% + 18vh);
+        This later one seems to take precedence or merge. */
+  }
+  .info-container {
+    top: calc(50% + 5vh);
+    left: 5vw;
+  }
+  .plot-container {
+    top: calc(50% + 6vh);
+    left: 5vw;
+  }
+  .genre {
+    top: calc(50% + -10vh); /* This is very high, above the vertical center */
+    left: 5vw;
+  }
+  .logo-container {
+    height: 30%;
+    top: 10%;
+    left: 5vw;
+  }
+  .slide-title { /* Ensured it's visible, as it's hidden in portrait mobile */
+    display: flex; /* Explicitly set if it might be 'none' from other queries */
+    left: 4vw; /* Default was 4vw, landscape specific uses 5vw for other elements, but title keeps 4vw from its own rule */
+     /* Properties from default .slide-title are inherited */
+  }
+}
+
+/* Portrait Phones/Tablets (max-width: 767px) */
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  .plot-container {
+    position: absolute;
+    display: flex;
+    left: 55%;
+    bottom: 40%;
+    width: 90vw;
+    transform: translate(-50%, -40px);
+  }
+  .plot {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    min-width: 80vw;
+    max-width: 100vw;
+    text-align: center;
+    text-overflow: ellipsis;
+    height: 6em;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+  .gradient-overlay { /* Specific for portrait */
+    background: rgb(0 0 0 / 0.25); /* Simpler gradient */
+    pointer-events: none;
+  }
+  .dots-container {
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background-color: #ffffff00; /* Transparent background */
+    /* top: calc(50% + 20vh); from one rule */
+    top: calc(50% + 20vh - 16px + 2em); /* From a later, more specific rule */
+  }
+  .dot.active { /* Portrait specific active dot */
+    transform: scale(1.6); /* Slightly smaller than default active */
+  }
+  .genre {
+    top: calc(50% + 4vh); /* From a later, more specific rule */
+    left: 50%;
+    width: 100%; /* Ensure it spans to be centered */
+    transform: translateX(-50%);
+    text-align: center; /* Ensure centered text */
+  }
+  .info-container {
+    top: calc(32% + 10vh);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    justify-content: center; /* Ensure items within are centered */
+  }
+  .button-container { /* The one for play/detail/fav */
+    /* top: calc(50% + 25vh); from one rule */
+    top: calc(50% - 2.6vh); /* From a later, more specific rule. This is very high. */
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+  }
+  .slide-title {
+    display: none; /* Hide title on small portrait screens */
+  }
+  .logo-container {
+    /* Original: width: 75%; height: 25%; top: 50%; left: 50%; transform: translate(-50%, -50%); align-items: start; */
+    /* From later more specific rule: */
+    top: calc(32% + 12vh - 25%);
+    margin: 0 auto;
+    left: 0; /* Clears previous left */
+    right: 0; /* Helps with centering */
+    transform: none; /* Clears previous transform */
+    width: 85%;
+    height: 23%;
+    align-items: center; /* Changed from start, or pick one consistently */
+    bottom: auto; /* Clear bottom if top is used */
+  }
+  .logo { /* Detail page logo image itself in portrait */
+    /* Original: top: 10%; left: 165%; max-height: 60%; transform: translate(-50%, -50%); */
+    /* From later more specific rule: */
+    left: 0;
+    transform: none;
+    margin: auto; /* For centering if block */
+    top: 0px;
+    position: relative; /* Was absolute */
+    max-height: 90%;
+    bottom: auto; /* Clear bottom if top is used */
+    filter: brightness(1.5); /* Inherited, ensure it's desired */
+  }
+  .plot { /* Adjust plot height, second definition */
+    height: 8em; /* Overrides the 6em from earlier portrait rule */
+  }
+  #slideshow-pause-button { /* Portrait specific */
+    right: calc(50% - var(--button-icon-only-size)/2); /* Center horizontally */
+    top: calc(50% + 20vh + 2em); /* Specific vertical position */
+    left: auto; /* Ensure right positioning takes precedence for centering trick */
+  }
+}
