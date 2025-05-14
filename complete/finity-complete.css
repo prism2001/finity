@@ -481,7 +481,7 @@ body > div.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blur
 }
 
 .layout-desktop .backgroundContainer.withBackdrop {
-  background: url("https://jellyfin.gachi.quest/web/assets/mask.png");
+  background: url("https://raw.githubusercontent.com/prism2001/finity/main/assets/mask.png");
   background-size: cover;
   height: 100vh;
   left: var(--detail-page-mask-offset);
