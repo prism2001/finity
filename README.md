@@ -63,7 +63,8 @@ There are two different variants available for you to choose from:
    
    After completing the step in the notice above, add this to the **top** of your Jellyfin's custom CSS field:
    
-   ``@import url("https://cdn.jsdelivr.net/gh/prism2001/finity@main/complete/finity-complete.css");``
+   ``@import url("https://cdn.jsdelivr.net/gh/prism2001/finity@main/complete/finity-complete.css");
+   ``
 
    ---
 
