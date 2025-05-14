@@ -44,23 +44,28 @@ Finity is a modern, minimal, and elegant theme for [Jellyfin](https://jellyfin.o
 
 ## Installation
 
-> [!IMPORTANT]
-> The "complete" variant of this theme relies on several external scripts, and an additional CSS ruleset. You **must** add some lines in your Jellyfin webroot's `index.html` file, **just before `</head>`**:
-```
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script><script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.5/dist/purify.min.js"></script><script async src="https://cdn.jsdelivr.net/gh/prism2001/finity@main/clickableTitles.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/prism2001/jellyfin-featured-slideshow@main/slideshowpure.css" />```
-<script async src="https://cdn.jsdelivr.net/gh/prism2001/jellyfin-featured-slideshow@main/slideshowpure.js"></script>
-```
-You can usually find the webroot in the following locations:
-Linux: `/usr/share/jellyfin/web/index.html`
-
-Windows: `C:\Program Files\Jellyfin\Server\jellyfin-web\index.html`
-
 There are two different variants available for you to choose from:
 ### 1. Complete
    Contains ALL features and is exactly as pictured in the preview screenshots. Contains some subjective tweaks and UI decisions.
+   > [!IMPORTANT]
+   > The "complete" variant of this theme relies on several external scripts, and an additional CSS ruleset. You **must** add some lines in your Jellyfin webroot's `index.html` file, **just before `</head>`**:
+   ```
+   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script><script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.5/dist/purify.min.js"></script><script async src="https://cdn.jsdelivr.net/gh/prism2001/finity@main/clickableTitles.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/prism2001/jellyfin-featured-slideshow@main/  slideshowpure.css" />```
+   <script async src="https://cdn.jsdelivr.net/gh/prism2001/jellyfin-featured-slideshow@main/slideshowpure.js"></script>
+   ```
+   You can usually find the webroot in the following locations:
+   
+   Linux: `/usr/share/jellyfin/web/index.html`
+   
+   Windows: `C:\Program Files\Jellyfin\Server\jellyfin-web\index.html`
+
+   ---
+   
    After completing the step in the notice above, add this to the **top** of your Jellyfin's custom CSS field:
    
    ``@import url("https://cdn.jsdelivr.net/gh/prism2001/finity@main/complete/finity-complete.css");``
+
+   ---
 
 ### 2. Minimal
 
