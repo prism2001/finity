@@ -2,13 +2,13 @@
 /* === FONTS === */
 /* ======================================== */
 
-/* Rubik Regular - Latin */
+@import url(https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400..700;1,400..700&display=swap);
+
 @font-face {
   font-display: swap;
   font-family: 'Rubik';
   font-style: normal;
   font-weight: 400;
-  src: url('https://gachi.quest/fonts/rubik-v28-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 /* ======================================== */
