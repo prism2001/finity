@@ -72,6 +72,8 @@ There are two different variants available for you to choose from:
    
    ![image](https://github.com/user-attachments/assets/76bb3f70-fb44-44fe-907e-e814ebdcc773)
 
+   Ideally you would put 8 different IDs in this file, but if you download `slideshowpure.js`, copy it to your webroot and change the `src=` in `index.html` to point to your local copy, you can change the variables to your liking.
+
 
    ---
    
