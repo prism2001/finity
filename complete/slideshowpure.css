@@ -11,11 +11,11 @@
   --font-weight-normal: 400;
   --button-icon-only-size: 3.125rem;
   --button-play-padding: 0.5rem 1rem;
-  --display-tomato-rating: none; /* Toggled by JS or theme settings */
-  --display-age-rating: none;    /* Toggled by JS or theme settings */
-  --display-imdb-logo: none;     /* Toggled by JS or theme settings */
-  --display-star-rating: none;   /* Toggled by JS or theme settings */
-  --display-critic-rating: none; /* Toggled by JS or theme settings */
+  --display-tomato-rating: none;
+  --display-age-rating: none;
+  --display-imdb-logo: none;
+  --display-star-rating: none;
+  --display-critic-rating: none;
 }
 
 .slide,
@@ -152,7 +152,7 @@
 
 .homeSectionsContainer {
   position: relative;
-  top: 65vh; /* Default, adjusted in landscape mobile */
+  top: 65vh;
   z-index: 6;
 }
 
@@ -218,7 +218,7 @@
 }
 
 .backdrop-overlay,
-.gradient-overlay { /* Shared properties for overlays */
+.gradient-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -245,26 +245,26 @@
 
 /* Logo */
 .logo-container {
-  width: 40%; /* Default, adjusted in media queries */
-  height: 35%; /* Default, adjusted in media queries */
+  width: 40%;
+  height: 35%;
   position: absolute;
   display: flex;
-  align-items: center; /* Default, adjusted in media queries */
+  align-items: center;
   z-index: 5;
-  bottom: calc(50% + 1vh); /* Default, adjusted in media queries */
-  left: 4vw; /* Default, adjusted in media queries */
+  bottom: calc(50% + 1vh);
+  left: 4vw;
 }
 
 .logo {
-  max-height: 70%; /* Default, adjusted in media queries */
-  max-width: 100%; /* Default, adjusted in media queries */
-  position: absolute; /* Default, adjusted in media queries */
-  bottom: 7vh; /* Default, adjusted in media queries */
+  max-height: 70%;
+  max-width: 100%;
+  position: absolute;
+  bottom: 7vh;
   height: auto;
   width: auto;
   object-fit: contain;
-  filter: brightness(1.5); /* Default, can be adjusted if .low-quality/.high-quality applies */
-  transition: filter 0.3s ease-in-out; /* Combined from .low-quality/.high-quality */
+  filter: brightness(1.5);
+  transition: filter 0.3s ease-in-out;
 }
 
 .logo.low-quality {
@@ -272,7 +272,7 @@
 }
 
 .logo.high-quality {
-  filter: brightness(1.1) blur(0); /* Overrides brightness(1.5) when high quality loads */
+  filter: brightness(1.1) blur(0);
 }
 
 .logo.animate {
@@ -299,8 +299,8 @@
 
 .plot-container {
   position: absolute;
-  top: calc(50% + 6vh); /* Default, adjusted by later rule and media queries */
-  left: 4vw; /* Default, adjusted in media queries */
+  top: calc(50% + 6vh);
+  left: 4vw;
   width: 90%;
   height: 15%;
   color: #fff;
@@ -316,13 +316,12 @@
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Default, overridden by a.slide .plot-container .plot */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  white-space: nowrap; /* Default, overridden by a.slide .plot-container .plot */
+  white-space: nowrap;
   position: relative;
   color: #fff;
-  /* height and width adjusted in media queries */
 }
 
 .plot a {
@@ -341,18 +340,18 @@ a.slide .plot-container .plot {
   max-width: 50vw !important;
   max-height: fit-content !important;
   line-height: 1.4 !important;
-  -webkit-line-clamp: 3 !important; /* Overrides default of 2 */
+  -webkit-line-clamp: 3 !important;
 }
 
 .genre {
   position: absolute;
-  top: calc(50% + 4vh); /* Default, adjusted by later rule and media queries */
-  left: 4vw; /* Default, adjusted in media queries */
-  text-align: center; /* Default, overridden in media queries */
+  top: calc(50% + 4vh);
+  left: 4vw;
+  text-align: center;
   color: #fff;
   font-family: "Rubik", sans-serif;
   z-index: 5;
-  font-weight: 500; /* From a later rule */
+  font-weight: 500;
 }
 
 /* Navigation Arrows */
@@ -378,11 +377,10 @@ a.slide .plot-container .plot {
   right: 20px;
 }
 
-/* Navigation Dots */
 .dots-container {
   position: absolute;
-  top: calc(50% + 18vh); /* Default, adjusted by later rule and media queries */
-  right: 3%; /* Default, adjusted in media queries */
+  top: calc(50% + 18vh);
+  right: 3%;
   z-index: 5;
   display: flex;
   justify-content: center;
@@ -394,53 +392,49 @@ a.slide .plot-container .plot {
 
 .dot {
   display: inline-block;
-  width: 8px;  /* Merged from later .dot rule */
-  height: 8px; /* Merged from later .dot rule */
+  width: 8px;
+  height: 8px;
   margin: 0 5px;
-  background-color: #CCCCCC; /* Merged from later .dot rule, was #cecece99 */
+  background-color: #CCCCCC;
   border-radius: 50%;
   transform-origin: center;
-  cursor: pointer; /* Merged from later .dot rule */
-  transition: transform 0.03s ease-in-out, background-color 0.03s ease-in-out; /* Merged from later .dot rule */
+  cursor: pointer;
+  transition: transform 0.03s ease-in-out, background-color 0.03s ease-in-out;
 }
 
-.dot:hover { /* Merged from later .dot:hover rule */
+.dot:hover {
   transform: scale(1.3);
   background-color: #E0E0E0;
 }
 
 .dot.active {
-  background-color: #F0F0F0; /* Merged from later .dot.active rule, was #fff */
+  background-color: #F0F0F0;
   transform: scale(1.7);
 }
 
-.dot.active:hover { /* Merged from later .dot.active:hover rule */
+.dot.active:hover {
   transform: scale(1.7);
   background-color: #FFFFFF;
 }
 
-
-/* Action Buttons (General Container and Individual) */
 .button-container {
   position: absolute;
-  top: calc(50% + 17vh); /* Initial, gets overridden by more specific .button-container later */
-  left: 4vw; /* Initial, gets overridden by more specific .button-container later */
-  display: flex; /* Overridden by inline-flex in more specific .button-container */
+  top: calc(50% + 17vh);
+  left: 4vw; 
+  display: flex;
   z-index: 5;
-  justify-content: space-between; /* Overridden by align-items in more specific .button-container */
-  gap: 15px; /* Overridden by 0.5rem in more specific .button-container */
+  justify-content: space-between; 
+  gap: 15px;
 }
 
-/* More specific .button-container rules that take precedence */
-.button-container { /* Shared container for play, detail, favorite buttons */
+.button-container {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  top: calc(50% + 4vh); /* This will be the effective top for this group */
-  /* left: 4vw; is inherited from above if not specified here, but media queries change it */
+  top: calc(50% + 4vh);
 }
 
-.button-container button { /* Common base style for buttons within this specific container */
+.button-container button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -452,49 +446,48 @@ a.slide .plot-container .plot {
   position: relative;
   border: none;
   transition: background-color 0.2s ease-out;
-  -webkit-tap-highlight-color: #fff0; /* Applied from individual button styles */
+  -webkit-tap-highlight-color: #fff0;
 }
 
-/* Individual button styles that were previously separate */
-.play-button { /* This is the general .play-button, specific styling in .button-container .play-button */
+.play-button {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 8px 16px; /* Overridden by var(--button-play-padding) in specific context */
+  padding: 8px 16px;
   border: solid 0px rgba(255, 255, 255, 0);
   font-family: "Rubik", sans-serif;
-  font-size: 18px; /* Overridden by icon font-size in specific context */
+  font-size: 18px;
   white-space: nowrap;
   cursor: pointer;
-  transition: all 0.3s ease; /* Overridden by background-color transition in specific context */
-  font-weight: 700; /* Overridden by var(--font-weight-normal) for icon in specific context */
-  gap: 6px; /* Overridden by 0rem in specific context */
+  transition: all 0.3s ease;
+  font-weight: 700;
+  gap: 6px;
   -webkit-tap-highlight-color: #fff0;
 }
 
 .detail-button,
-.favorite-button { /* General styles for these, specific ones in .button-container context */
-  font-size: 18px; /* Overridden by icon font-size in specific context */
-  border-radius: 50%; /* Overridden by var(--theme-roundness) in specific context */
-  height: 50px; /* Overridden by var(--button-icon-only-size) in specific context */
-  width: 50px; /* Overridden by var(--button-icon-only-size) in specific context */
+.favorite-button {
+  font-size: 18px; 
+  border-radius: 50%; 
+  height: 50px; 
+  width: 50px;
   border: none;
   cursor: pointer;
-  transition: color 0.2s; /* Overridden by background-color transition in specific context */
+  transition: color 0.2s;
   -webkit-tap-highlight-color: #fff0;
 }
 
 .detail-button {
-  color: rgb(0, 0, 0); /* Overridden by var(--theme-text-color) in specific context */
+  color: rgb(0, 0, 0);
 }
 
 .favorite-button {
-  color: red; /* Overridden by var(--theme-text-color) for icon, color red only when .favorited */
+  color: red;
 }
 
 .favorite-button.favorited {
-  color: red; /* Ensures icon remains red when favorited */
+  color: red;
 }
 
 /* Specific button styles within the .button-container */
@@ -521,45 +514,45 @@ a.slide .plot-container .plot {
 .button-container .detail-button:hover,
 .button-container .play-button:hover {
   background-color: var(--button-bg-subtle-hover) !important;
-  opacity: 1; /* Overriding the generic .play-button:hover opacity: 0.8 */
+  opacity: 1;
 }
-.play-button:hover, /* General hover, less specific */
+.play-button:hover,
 .detail-button:hover,
 .favorite-button:hover {
-  opacity: 0.8; /* This will only apply if not inside .button-container */
+  opacity: 0.8;
 }
 
 
 /* Button Icons (::before pseudo-elements) */
 .play-button::before,
 .detail-button::before,
-.favorite-button::before { /* Base for all three, specific content below */
+.favorite-button::before {
   display: inline-block;
   vertical-align: middle;
   font-family: "Material Icons";
-  font-size: 1.6em; /* From later rule, was 22px initially */
-  line-height: 1; /* From later rule */
-  font-weight: var(--font-weight-normal); /* From later rule, was 600 initially */
+  font-size: 1.6em;
+  line-height: 1;
+  font-weight: var(--font-weight-normal);
   color: inherit;
 }
 
 .play-button::before {
   content: "play_arrow";
-  margin-right: 0.5rem; /* From later rule, specific to play button if it has text */
+  margin-right: 0.5rem;
 }
 
 .detail-button::before {
-  content: "info"; /* From later rule, was "info_outline" initially */
+  content: "info";
 }
 
-.favorite-button::before { /* Default to filled for .button-container context, outline otherwise */
-  content: "favorite_outline"; /* Initial, overridden for .button-container context */
+.favorite-button::before {
+  content: "favorite_outline";
 }
 .button-container .favorite-button::before {
-  content: "favorite"; /* Default for buttons inside this specific container */
+  content: "favorite";
 }
 .favorite-button.favorited::before {
-  content: "favorite"; /* Ensures filled heart when favorited, regardless of context */
+  content: "favorite";
 }
 
 
@@ -572,9 +565,9 @@ a.slide .plot-container .plot {
   background-color: rgba(255,255,255,0.1);
   color: white;
   border: none;
-  border-radius: var(--theme-roundness); /* From an earlier rule, overridden by fixed px later if not careful */
-  width: 40px; /* One of several definitions */
-  height: 40px; /* One of several definitions */
+  border-radius: var(--theme-roundness);
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -595,11 +588,11 @@ a.slide .plot-container .plot {
 /* Info Container and Elements (Ratings, Runtime, Date) */
 .info-container {
   position: absolute;
-  top: calc(50% + 0vh); /* Default, adjusted in media queries */
-  left: 4vw; /* Default, adjusted in media queries */
+  top: calc(50% + 0vh);
+  left: 4vw;
   display: flex;
   align-items: center;
-  justify-content: center; /* Default, overridden in media queries */
+  justify-content: center;
   color: #fff;
   z-index: 5;
   align-content: center;
@@ -609,7 +602,7 @@ a.slide .plot-container .plot {
 
 .rating-value,
 .runTime,
-.date { /* Common styles for info items */
+.date {
   font-family: "Rubik", sans-serif;
   display: flex;
   align-items: center;
@@ -617,56 +610,56 @@ a.slide .plot-container .plot {
 }
 
 .rating-value {
-  z-index: 5; /* Explicitly set, though inherited */
-  position: relative; /* Explicitly set, though default */
+  z-index: 5;
+  position: relative; 
 }
 
 .runTime,
 .date,
-.age-rating, /* age-rating shares some layout properties */
+.age-rating,
 .separator-icon {
   margin-left: 5px;
   margin-right: 5px;
 }
 
-.runTime, .date, .imdb-logo, .tomato-logo, .critic-logo { /* Shared flex properties */
-  display: flex; /* Repetitive, but ensures applied */
+.runTime, .date, .imdb-logo, .tomato-logo, .critic-logo {
+  display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap; /* may not be needed if items are small */
-  align-content: center; /* for multi-line flex items */
+  flex-wrap: wrap;
+  align-content: center;
 }
 
 .tomato-rating {
-  display: var(--display-tomato-rating) !important; /* Controlled by variable */
+  display: var(--display-tomato-rating) !important;
   align-items: center;
-  margin-left: 0; /* Specific to tomato-rating */
+  margin-left: 0;
 }
 
 .imdb-logo {
-  display: var(--display-imdb-logo) !important; /* Controlled by variable */
-  margin-right: 1px; /* Specific to imdb-logo */
+  display: var(--display-imdb-logo) !important;
+  margin-right: 1px;
 }
-.imdb-logo+span { /* If text follows the IMDB logo */
+.imdb-logo+span {
     display: var(--display-imdb-logo) !important;
 }
 
 .tomato-logo {
-  margin-left: 5px; /* Specific to tomato-logo */
+  margin-left: 5px;
 }
 
 .critic-logo {
-  margin-right: 5px; /* Specific to critic-logo */
+  margin-right: 5px;
 }
 .starRatingContainer.mediaInfoItem {
-    display: var(--display-star-rating) !important; /* Controlled by variable */
+    display: var(--display-star-rating) !important;
 }
 .mediaInfoCriticRating {
-    display: var(--display-critic-rating) !important; /* Controlled by variable */
+    display: var(--display-critic-rating) !important;
 }
 
 .age-rating {
-  display: var(--display-age-rating) !important; /* Controlled by variable */
+  display: var(--display-age-rating) !important; 
   border-radius: 5px;
   background: rgb(255 255 255 / 0.8);
   color: #000;
@@ -686,27 +679,27 @@ a.slide .plot-container .plot {
 .tomato-rating+.separator-icon,
 .age-rating+.separator-icon,
 .imdb-logo+span+.separator-icon {
-  display: var(--display-imdb-logo) !important; /* Simplification: if IMDB is shown, separators might be relevant */
+  display: var(--display-imdb-logo) !important;
 }
 
 
-/* General Adjustments (from later in the file, applied to defaults if not media query specific) */
+/* General Adjustments */
 .dots-container {
-  top: calc(50% + 16vh); /* Overrides previous default */
+  top: calc(50% + 16vh);
 }
 
 .genre {
-  top: calc(50% + 10.5vh); /* Overrides previous default */
+  top: calc(50% + 10.5vh);
 }
 
 .plot-container {
-  top: calc(50% + 12vh); /* Overrides previous default */
+  top: calc(50% + 12vh);
 }
 
 
 /* Media Queries */
 
-/* Landscape Phones (General Adjustments) */
+/* Landscape Phones */
 @media only screen and (max-height: 767px) and (orientation: landscape) {
   #slides-container {
     height: 100%;
@@ -714,22 +707,20 @@ a.slide .plot-container .plot {
   .homeSectionsContainer {
     top: 57vh;
   }
-  .button-container { /* Applies to the specific .button-container group */
+  .button-container {
     left: 3vw;
-    top: 30vw; /* This is quite high, ensure it's intended */
+    top: 30vw;
     transform: scale(0.85);
   }
   .dots-container {
-    scale: 0.6; /* Using scale like this is modern, ensure browser compatibility if older needed */
-    top: calc(50% + 20vh); /* Added from a later similar media query block for this element */
+    scale: 0.6;
+    top: calc(50% + 20vh);
   }
   #slideshow-pause-button {
-    right: calc(3% + 70px); /* Adjusted from one variant */
-    top: calc(50% + 20vh);   /* From its own block and a later one */
-    transform: scale(0.85);  /* From its own block and a later one */
-    left: auto; /* Ensure right positioning takes precedence */
-     /* An earlier rule specified: right: calc(3% + 50px); transform: scale(0.8); top: calc(50% + 18vh);
-        This later one seems to take precedence or merge. */
+    right: calc(3% + 70px);
+    top: calc(50% + 20vh);
+    transform: scale(0.85);
+    left: auto;
   }
   .info-container {
     top: calc(50% + 5vh);
@@ -740,7 +731,7 @@ a.slide .plot-container .plot {
     left: 5vw;
   }
   .genre {
-    top: calc(50% + -10vh); /* This is very high, above the vertical center */
+    top: calc(50% + -10vh);
     left: 5vw;
   }
   .logo-container {
@@ -748,10 +739,9 @@ a.slide .plot-container .plot {
     top: 10%;
     left: 5vw;
   }
-  .slide-title { /* Ensured it's visible, as it's hidden in portrait mobile */
-    display: flex; /* Explicitly set if it might be 'none' from other queries */
-    left: 4vw; /* Default was 4vw, landscape specific uses 5vw for other elements, but title keeps 4vw from its own rule */
-     /* Properties from default .slide-title are inherited */
+  .slide-title {
+    display: flex;
+    left: 4vw;
   }
 }
 
@@ -777,74 +767,68 @@ a.slide .plot-container .plot {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   }
-  .gradient-overlay { /* Specific for portrait */
-    background: rgb(0 0 0 / 0.25); /* Simpler gradient */
+  .gradient-overlay {
+    background: rgb(0 0 0 / 0.25);
     pointer-events: none;
   }
   .dots-container {
     left: 50%;
     transform: translateX(-50%) scale(0.8);
-    background-color: #ffffff00; /* Transparent background */
-    /* top: calc(50% + 20vh); from one rule */
-    top: calc(50% + 20vh - 16px + 2em); /* From a later, more specific rule */
+    background-color: #ffffff00;
+    top: calc(50% + 20vh - 16px + 2em);
   }
-  .dot.active { /* Portrait specific active dot */
-    transform: scale(1.6); /* Slightly smaller than default active */
+  .dot.active {
+    transform: scale(1.6);
   }
   .genre {
-    top: calc(50% + 4vh); /* From a later, more specific rule */
+    top: calc(50% + 4vh);
     left: 50%;
-    width: 100%; /* Ensure it spans to be centered */
+    width: 100%;
     transform: translateX(-50%);
-    text-align: center; /* Ensure centered text */
+    text-align: center;
   }
   .info-container {
     top: calc(32% + 10vh);
     left: 50%;
     transform: translateX(-50%);
     width: 95%;
-    justify-content: center; /* Ensure items within are centered */
+    justify-content: center;
   }
   .button-container { /* The one for play/detail/fav */
-    /* top: calc(50% + 25vh); from one rule */
-    top: calc(50% - 2.6vh); /* From a later, more specific rule. This is very high. */
+    top: calc(50% - 2.6vh);
     left: 50%;
     transform: translateX(-50%) scale(0.95);
   }
   .slide-title {
-    display: none; /* Hide title on small portrait screens */
+    display: none;
   }
   .logo-container {
-    /* Original: width: 75%; height: 25%; top: 50%; left: 50%; transform: translate(-50%, -50%); align-items: start; */
-    /* From later more specific rule: */
     top: calc(32% + 12vh - 25%);
     margin: 0 auto;
-    left: 0; /* Clears previous left */
-    right: 0; /* Helps with centering */
-    transform: none; /* Clears previous transform */
+    left: 0;
+    right: 0;
+    transform: none;
     width: 85%;
     height: 23%;
-    align-items: center; /* Changed from start, or pick one consistently */
-    bottom: auto; /* Clear bottom if top is used */
+    align-items: center;
+    bottom: auto;
   }
-  .logo { /* Detail page logo image itself in portrait */
-    /* Original: top: 10%; left: 165%; max-height: 60%; transform: translate(-50%, -50%); */
-    /* From later more specific rule: */
+  .logo {
     left: 0;
     transform: none;
-    margin: auto; /* For centering if block */
+    margin: auto;
     top: 0px;
-    position: relative; /* Was absolute */
+    position: relative;
     max-height: 90%;
-    bottom: auto; /* Clear bottom if top is used */
-    filter: brightness(1.5); /* Inherited, ensure it's desired */
+    bottom: auto;
+    filter: brightness(1.5);
   }
-  .plot { /* Adjust plot height, second definition */
-    height: 8em; /* Overrides the 6em from earlier portrait rule */
+  .plot {
+    height: 8em;
   }
-  #slideshow-pause-button { /* Portrait specific */
-    right: calc(50% - var(--button-icon-only-size)/2); /* Center horizontally */
-    top: calc(50% + 20vh + 2em); /* Specific vertical position */
-    left: auto; /* Ensure right positioning takes precedence for centering trick */
+  #slideshow-pause-button {
+    right: calc(50% - var(--button-icon-only-size)/2);
+    top: calc(50% + 20vh + 2em);
+    left: auto;
   }
 }
