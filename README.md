@@ -82,6 +82,24 @@ There are two different variants available for you to choose from:
    ``@import url("https://cdn.jsdelivr.net/gh/prism2001/finity@main/complete/finity-complete.css");
    ``
 
+   If you're having issues with setting up the complete theme, see below:
+<details>
+  <summary>Common issues</summary>
+
+  - **"I don't see the featured slideshow on the homepage!"**  
+    Ensure you **carefully** copied the HTML from the block above correctly, and just before the `</head>` tag.
+
+  - **"The featured slideshow is blank!"**  
+    Make sure `/avatars/list.txt` exists in your Jellyfin web root.  
+    For the slideshow to start displaying, there should be **at least one** media ID in the `list.txt` file.
+
+  - **"The backdrop gradient isn't showing!"**  
+    Make sure the user display settings mentioned at the top of the README are set properly.  
+    Also, if you have any of your own custom CSS rules, ensure they aren't conflicting with the gradient mask.  
+    Finally, make sure your browser is up to date. This theme does not support older browsers or clients.
+</details>
+
+
    ---
 
 ### 2. Minimal
@@ -231,14 +249,15 @@ There are two different variants available for you to choose from:
 ## Compatibility
 
 - Tested with Jellyfin 10.10.7 and later
-- Works across desktop and mobile interfaces
+- At the moment, primarily designed for desktop/web. Works on mobile devices, but a few things will look different - mobile needs some more work
 - Not guaranteed to be compatible with unofficial forks or third-party clients
+- **Not supported** on older browsers or Jellyfin versions. If you are using out-of-date software, I will not provide support for you.
 
 ---
 
 ## Special Thanks
 
-MakD's [Jellyfin-Media-Bar](https://github.com/MakD/Jellyfin-Media-Bar) was kind of the catalyst that inspired me to start making this theme. Additionally, some design choices are borrowed from [Jamfin](https://github.com/JamsRepos/Jamfin) and [Glassmorphism](https://github.com/alexyle/jellyfin-theme).
+MakD's [Jellyfin-Media-Bar](https://github.com/MakD/Jellyfin-Media-Bar) inspired me to start making this theme, as I wanted my own styling to go with it. Additionally, some design choices are borrowed from [Jamfin](https://github.com/JamsRepos/Jamfin) and [Glassmorphism](https://github.com/alexyle/jellyfin-theme).
 
 ## License
 
