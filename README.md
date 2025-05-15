@@ -68,7 +68,7 @@ There are two different variants available for you to choose from:
    ID3
    ```
 
-   Replace the `IDx` lines with an ID from a movie or show in your library. You can get this by clicking on something, and copying the `&id=` from your browser's URL bar:
+   Replace the `IDx` lines with an ID from a movie or show in your library. You can get this by clicking on something, and copying the set of numbers and letters after `&id=` from your browser's URL bar:
    
    ![image](https://github.com/user-attachments/assets/76bb3f70-fb44-44fe-907e-e814ebdcc773)
 
