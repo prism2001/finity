@@ -1221,3 +1221,11 @@ option {
 	-webkit-backdrop-filter: unset !important;
 	background-color: transparent !important;
 }
+
+
+/* shift homepage drawers down slightly on <=1080p screens, in case of description overflow on the featured carousel */
+@media screen and (max-width: 1920px) and (max-height: 1080px) {
+  div:not(.sectionTitleContainer-cards) > .sectionTitle-cards {
+    padding-top: 1.5em;
+  }
+}
