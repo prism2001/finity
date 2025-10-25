@@ -1,5 +1,8 @@
 # Finity Theme for Jellyfin
 
+> [!IMPORTANT]
+> The 10.11.x update has largely broken this theme. I am working on it. But I would advise not using this theme for the time being until I can update it for the newest version of Jellyfin.
+
 ![Finity Logo](finity.png)
 
 Now in beta. There is still polishing to be done here and there, and some areas of the UI haven't been completely finalized yet, but most of the main styling is present. PRs are welcomed - whether it be to make things more efficient, performant, or to polish the overall theme. Right now there may be quite a few bugs since I haven't had very many people testing it on different browsers and monitor setups.
