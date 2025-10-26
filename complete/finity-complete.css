@@ -94,13 +94,14 @@
 
   /* --- Layout & Sizing --- */
   --card-padding: 25px; /* Padding inside cards */
-  --detail-page-side-padding: 5%; /* Padding on the sides of detail pages */
-  --detail-page-primary-width: 45%; /* Width of the primary content area on desktop detail pages */
+  --detail-page-side-padding: 3vw; /* Padding on the sides of detail pages */
+  --detail-page-secondary-side-padding: 4vw; /* padding for the secondary container (cast & crew, More Like This) */ 
+  --detail-page-primary-width: 60%; /* Width of the primary content area on desktop detail pages */
   --detail-page-backdrop-offset: 17%; /* Offset for the backdrop image */
   --detail-page-backdrop-width: 85vw; /* Width of the backdrop container */
   --detail-page-mask-offset: 16%; /* Start mask slightly before backdrop */
   --detail-page-mask-width: 85vw; /* Make mask slightly wider than backdrop */
-  --detail-page-content-offset: -65vh; /* Vertical offset for content */
+  --detail-page-content-offset: -50vh; /* Vertical offset for content */
   --overflow-card-margin-left: 0vw; /* Left margin for the first overflow card */
   --overflow-portrait-width: 7.5vw; /* Width for portrait overflow cards */
   --overflow-backdrop-width: 8.5vw; /* Width for backdrop overflow cards */
@@ -418,34 +419,38 @@ body > div.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blur
 /* ======================================== */
 
 /* --- Layout Containers --- */
-.detailPagePrimaryContainer {
+.layout-desktop .detailPagePrimaryContainer {
   background-color: var(--transparent-bg);
-  display: inline-table;
+  display: block;
   left: var(--detail-page-side-padding);
-  padding-left: var(--detail-page-side-padding);
   z-index: 2; /* Above backdrop/mask */
   position: relative;
+  width: var(--detail-page-primary-width);
 }
 
 .mainDetailButtons { /* Container for main action buttons (Play, Favorite, etc.) */
   display: flex;
   align-items: center;
-  margin: unset !important;
+  margin: 0em 0 1.5em 0 !important;
   position: relative;
   left: -18px;
+  width: 100%; /* Ensure buttons container takes full width in the column */
 }
 
 .layout-desktop .detailPageContent {
-  padding-left: var(--detail-page-side-padding);
+  padding-left: 0;
 }
 
 .layout-desktop .detailPagePrimaryContent {
   width: var(--detail-page-primary-width);
+  padding-left: 0.75vw;
 }
 
 .layout-desktop .detailPageSecondaryContainer {
   background-color: var(--transparent-bg);
   padding-top: 0 !important; /* remove padding between buttons and description on a show page */
+  padding-left: var(--detail-page-secondary-side-padding);
+  z-index: 2;
 }
 
 .layout-desktop .itemDetailsGroup {
@@ -549,12 +554,6 @@ span.material-icons.cardOverlayButtonIcon.cardOverlayButtonIcon-hover.play_arrow
 /* admin dashboard: orange restart button */
 #btnRestartServer {
   background: #bb7a4a;
-}
-
-/* --- Pill-style Groups (Genres, Tags, etc.) --- */
-.itemDetailsGroup { /* Container for a group like "Genres: Action, Adventure" */
-  display: inline-block;
-  margin-bottom: 0.5rem;
 }
 
 /* --- Pill-style Groups (Genres, Tags, etc.) --- */
@@ -693,6 +692,7 @@ div.detailPageContent div.detailSectionContent p, /* General paragraph in detail
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 12;
   margin: unset !important; /* remove even more padding between description */
+  margin-top: 0.75em !important; /* Restore padding between buttons & synopsis */
 }
 
 .itemGenres { /* Explicitly hide the .itemGenres if tags are used or it's redundant */
@@ -781,7 +781,7 @@ video.htmlvideoplayer::cue {
   min-width: var(--track-selection-min-width);
   backdrop-filter: var(--blur-effect);
   border-radius: var(--theme-roundness);
-  padding: 0.5rem;
+  margin-top: 2.25rem !important;
 }
 
 /* ======================================== */
@@ -789,12 +789,13 @@ video.htmlvideoplayer::cue {
 /* ======================================== */
 
 /* --- Grid Container --- */
-#childrenContent .itemsContainer.vertical-list,
-#childrenCollapsible .childrenItemsContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--episode-grid-min-item-width), 1fr));
-  gap: var(--episode-grid-gap);
-  padding: var(--episode-grid-padding);
+#childrenContent .itemsContainer.vertical-list, #childrenCollapsible .childrenItemsContainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(var(--episode-grid-min-item-width), 1fr));
+	gap: var(--episode-grid-gap);
+	padding: var(--episode-grid-padding);
+	margin-right: -35vw !important;
+  padding-left: 0vw !important;
 }
 
 /* --- Individual Episode Item --- */
@@ -1055,7 +1056,7 @@ video.htmlvideoplayer::cue {
   height: 1em;
 }
 
-/*  Center specific context menus (e.g., Cast, SyncPlay) and adjust their width */
+/* Center specific context menus (e.g., Cast, SyncPlay) and adjust their width */
 .dialogContainer .focuscontainer.dialog.actionsheet-not-fullscreen.actionSheet.opened.centeredDialog:not(:has(button[data-id="edit"], button[data-id="delete"], button[data-id="addtocollection"], button[data-id="refresh"], button[data-id="download"])),
 .dialogContainer .focuscontainer.dialog.actionsheet-not-fullscreen.actionSheet.opened.syncPlayGroupMenu {
     position: fixed !important;
@@ -1131,7 +1132,10 @@ div.listItem-content div.listItemImage.listItemImage-large.itemAction.lazy.non-b
   }
 }
 
-/* --- Phones (max-width: 900px) --- */
+/* ======================================== */
+/* === PHONES (max-width: 900px) === */
+/* ======================================== */
+
 @media (max-width: 900px) {
   :root {
     --episode-grid-min-item-width: 140px;
@@ -1142,8 +1146,10 @@ div.listItem-content div.listItemImage.listItemImage-large.itemAction.lazy.non-b
     --overflow-portrait-width: 24vw;
     --overflow-backdrop-width: 36vw;
     --overflow-card-margin-left: 3vw;
-    --detail-page-primary-width: 90%;
-    --detail-page-content-offset: -75vh;
+    
+    /* Remove desktop-specific layout vars from mobile */
+    /* --detail-page-primary-width: 90%; */
+    /* --detail-page-content-offset: -75vh; */
   }
   
   /* hide play icons on cards and portraits as it's not really necessary on mobile */
@@ -1153,10 +1159,78 @@ div.listItem-content div.listItemImage.listItemImage-large.itemAction.lazy.non-b
   div.card.overflowPortraitCard.card-withuserdata div.cardBox.cardBox-bottompadded div.cardScalable button.cardOverlayButton.cardOverlayButton-br.itemAction.paper-icon-button-light span.material-icons.cardOverlayButtonIcon.play_arrow {
     display: none;
   }
+
+  /* --- Home Page --- */
+  /* Reset desktop's negative offset for home sections */
+  .layout-mobile .homeSectionsContainer {
+    position: relative !important;
+    top: auto !important;
+    margin-top: 1rem !important;
+    z-index: 6;
+  }
   
-  /* add back a bit of padding to detail buttons*/
-  .mainDetailButtons {
+  /* Override the specific slideshow rule */
+  .layout-mobile #slides-container + .homeSectionsContainer {
+    top: auto !important;
+    margin-top: 1rem !important;
+  }
+
+  /* --- Detail Page --- */
+
+  /* Hide desktop-only layout elements */
+  .layout-mobile .backdropContainer,
+  .layout-mobile .backgroundContainer.withBackdrop,
+  .layout-mobile .detailLogo {
+    display: none !important;
+  }
+
+  /* Show the poster, which is hidden on desktop */
+  .layout-mobile .detailImageContainer .card {
+    display: block !important;
+  }
+
+  /* Reset desktop's negative offset */
+  .layout-mobile .detailPageWrapperContainer {
+    margin-top: 0 !important;
+    position: relative !important;
+  }
+
+  /* Force content containers to be full-width and stack */
+  .layout-mobile .detailPagePrimaryContainer,
+  .layout-mobile .detailPagePrimaryContent,
+  .layout-mobile .detailPageSecondaryContainer {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 1rem !important; /* Use consistent mobile padding */
+    left: 0 !important;
+    position: relative !important;
+  }
+
+  .layout-mobile .detailPageSecondaryContainer {
+    padding-top: 1rem !important; /* Add space between sections */
+  }
+
+  /* Adjust main detail buttons */
+  .layout-mobile .mainDetailButtons {
     padding-top: 20px;
+    left: 0 !important; /* Reset desktop's -18px offset */
+    justify-content: center; /* Center buttons on mobile */
+  }
+
+  .layout-mobile .detailRibbon {
+    display: block !important;
+    flex-direction: column !important; /* Ensure it stacks if flex is used */
+    padding: 0 1rem !important; /* Add mobile padding */
+    background: none !important;
+  }
+
+  /* --- Episode Grid --- */
+  
+  /* Fix horizontal overflow */
+  .layout-mobile #childrenContent .itemsContainer.vertical-list, 
+  .layout-mobile #childrenCollapsible .childrenItemsContainer {
+    margin-right: 0 !important; /* Remove desktop negative margin */
+    padding-left: var(--episode-grid-padding) !important; /* Restore normal padding */
   }
   
   /* fix play button on show grid view */
@@ -1168,20 +1242,6 @@ div.listItem-content div.listItemImage.listItemImage-large.itemAction.lazy.non-b
     font-size: 125%;
   }
   
-  .layout-desktop .detailPagePrimaryContent {
-    width: var(--detail-page-primary-width);
-  }
-
-  .layout-desktop .detailLogo {
-    left: 3%;
-    top: 10vh;
-  }
-
-  .detailPagePrimaryContainer {
-    left: 3%;
-    padding-left: 3%;
-  }
-
   /* Remove blur from header elements on smaller screens for performance/preference */
   .skinHeader,
   .actionSheet,
@@ -1229,3 +1289,85 @@ option {
     padding-top: 1.5em;
   }
 }
+
+/* restore position for ribbon */
+html.layout-desktop [dir="ltr"] .detailRibbon {
+    padding-left: 0.75vw !important; /* Overrides JS-injected style */
+    background: none !important;
+}
+
+/* Handle right-to-left layouts as well */
+html.layout-desktop [dir="rtl"] .detailRibbon {
+    padding-right: 0.75vw !important;
+    padding-left: unset !important;
+    background: none !important;
+}
+
+/* Force detail ribbon to stack vertically */
+.detailRibbon {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+/* Add background and drop shadow to scroller buttons for visibility */
+.emby-scrollbuttons-button {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    backdrop-filter: blur(2px);
+}
+
+.emby-scrollbuttons-button .material-icons {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.emby-scrollbuttons-button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+}
+
+/* Make the section header a flex container to align title and buttons */
+.layout-desktop .moreFromSeasonSection {
+    display: block;
+    align-items: center; /* Vertically align title and buttons */
+    /* Adjust padding if necessary, e.g., remove default padding if it interferes */
+    padding-bottom: 0.5em; /* Add some space below the header line */
+}
+
+/* Adjust the section title's spacing */
+.layout-desktop .moreFromSeasonSection .sectionTitle {
+    /* Override inline and default padding */
+    padding-right: 0.5em !important; /* Add small space between title and buttons */
+    margin-bottom: 0; /* Remove default bottom margin */
+    /* Prevent title from shrinking/growing if needed, adjust as necessary */
+    flex-shrink: 0;
+}
+
+/* Adjust the scroll buttons container's spacing */
+.layout-desktop .moreFromSeasonSection .emby-scrollbuttons {
+    padding-right: 0 !important; /* Remove default right padding */
+    /* Ensure buttons stay in line and don't wrap */
+    flex-shrink: 0;
+}
+
+.emby-scrollbuttons {
+  margin-right: 80vw !important;
+}
+
+/* --- Home Section Container Positioning --- */
+/* SAFE FALLBACK: Apply default positioning when slideshow is NOT present */
+    body > #reactRoot .mainAnimatedPages .page.homePage .tabContent#homeTab .homeSectionsContainer {
+      position: relative !important;
+      margin-top: unset !important;
+      top: 10vh !important; /* <<< Safe fallback position */
+      z-index: 6;
+      padding-top: 1em;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* OVERRIDE: Apply negative offset ONLY if #slides-container is present as a sibling inside #homeTab */
+    body > #reactRoot .mainAnimatedPages .page.homePage .tabContent#homeTab #slides-container + .homeSectionsContainer {
+      top: -25vh !important;
+    }
