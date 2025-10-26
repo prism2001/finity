@@ -59,10 +59,9 @@ There are two different variants available for you to choose from:
    
    Windows: `C:\Program Files\Jellyfin\Server\jellyfin-web\index.html`
 
-   Finally, in your webroot, create an `avatars` directory, and inside of it, a `list.txt` file. Then format it like this:
+   Finally, in your webroot, create a `list.txt` file. Then format it like this:
 
    ```
-   Featured
    ID1
    ID2
    ID3
