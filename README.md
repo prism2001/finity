@@ -89,7 +89,7 @@ There are two different variants available for you to choose from:
     Ensure you **carefully** copied the HTML from the block above correctly, and just before the `</head>` tag.
 
   - **"The featured slideshow is blank!"**  
-    Make sure `/avatars/list.txt` exists in your Jellyfin web root.  
+    Make sure `list.txt` exists in your Jellyfin web root.  
     For the slideshow to start displaying, there should be **at least one** media ID in the `list.txt` file.
 
   - **"The backdrop gradient isn't showing!"**  
