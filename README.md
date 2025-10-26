@@ -1,7 +1,7 @@
 # Finity Theme for Jellyfin
 
 > [!IMPORTANT]
-> The 10.11.x update has largely broken this theme. I am working on it. But I would advise not using this theme for the time being until I can update it for the newest version of Jellyfin.
+> This is an EOL, legacy archive of the 10.10.x version of this theme. There will be no further updates to this branch, nor will I be providing any support. Do NOT open an issue if you use this branch.
 
 ![Finity Logo](finity.png)
 
@@ -53,8 +53,8 @@ There are two different variants available for you to choose from:
    > [!IMPORTANT]
    > The "complete" variant of this theme relies on several external scripts, and an additional CSS ruleset. You **must** add some lines in your Jellyfin webroot's `index.html` file, **just before `</head>`**:
    ```
-   <script src="https://cdn.jsdelivr.net/npm/marked@15.0.11/marked.min.js"></script><script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.5/dist/purify.min.js"></script><script async src="https://cdn.jsdelivr.net/gh/prism2001/finity@main/clickableTitles.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/prism2001/finity@main/complete/slideshowpure.css" />
-   <script async src="https://cdn.jsdelivr.net/gh/prism2001/jellyfin-featured-slideshow@main/slideshowpure.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/marked@15.0.11/marked.min.js"></script><script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.5/dist/purify.min.js"></script><script async src="https://cdn.jsdelivr.net/gh/prism2001/finity@legacy-10.10/clickableTitles.js"></script>     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/prism2001/finity@legacy-10.10/complete/slideshowpure.css" />
+   <script async src="https://cdn.jsdelivr.net/gh/prism2001/jellyfin-featured-slideshow@legacy-10.10/slideshowpure.js"></script>
    ```
    You can usually find the webroot in the following locations:
    
@@ -82,7 +82,7 @@ There are two different variants available for you to choose from:
    
    After completing the steps above, add this to the **top** of your Jellyfin's custom CSS field:
    
-   ``@import url("https://cdn.jsdelivr.net/gh/prism2001/finity@main/complete/finity-complete.css");
+   ``@import url("https://cdn.jsdelivr.net/gh/prism2001/finity@legacy-10.10/complete/finity-complete.css");
    ``
 
    If you're having issues with setting up the complete theme, see below:
@@ -115,7 +115,7 @@ There are two different variants available for you to choose from:
 
    Add this to the **top** of your Jellyfin's custom CSS field:
    
-   ``@import url("https://cdn.jsdelivr.net/gh/prism2001/finity@main/minimal/finity-minimal.css");``
+   ``@import url("https://cdn.jsdelivr.net/gh/prism2001/finity@legacy-10.10/minimal/finity-minimal.css");``
 
 ---
 
