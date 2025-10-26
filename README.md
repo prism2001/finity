@@ -206,13 +206,14 @@ There are two different variants available for you to choose from:
 
   /* --- Layout & Sizing --- */
   --card-padding: 25px; /* Padding inside cards */
-  --detail-page-side-padding: 5%; /* Padding on the sides of detail pages */
-  --detail-page-primary-width: 45%; /* Width of the primary content area on desktop detail pages */
+  --detail-page-side-padding: 3vw; /* Padding on the sides of detail pages */
+  --detail-page-secondary-side-padding: 4vw; /* padding for the secondary container (cast & crew, More Like This) */ 
+  --detail-page-primary-width: 60%; /* Width of the primary content area on desktop detail pages */
   --detail-page-backdrop-offset: 17%; /* Offset for the backdrop image */
   --detail-page-backdrop-width: 85vw; /* Width of the backdrop container */
   --detail-page-mask-offset: 16%; /* Start mask slightly before backdrop */
   --detail-page-mask-width: 85vw; /* Make mask slightly wider than backdrop */
-  --detail-page-content-offset: -65vh; /* Vertical offset for content */
+  --detail-page-content-offset: -50vh; /* Vertical offset for content */
   --overflow-card-margin-left: 0vw; /* Left margin for the first overflow card */
   --overflow-portrait-width: 7.5vw; /* Width for portrait overflow cards */
   --overflow-backdrop-width: 8.5vw; /* Width for backdrop overflow cards */
