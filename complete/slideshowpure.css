@@ -1,6 +1,5 @@
 @import url(https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400..700;1,400..700&display=swap);
 
-/* Root and Global Styles */
 :root {
   --theme-background-color: #181818;
   --theme-text-color: #eee;
@@ -11,28 +10,42 @@
   --font-weight-normal: 400;
   --button-icon-only-size: 3.125rem;
   --button-play-padding: 0.5rem 1rem;
-  --display-tomato-rating: none;
-  --display-age-rating: none;
-  --display-imdb-logo: none;
+  /* Custom display toggles */
+  --display-tomato-rating: flex;
+  --display-age-rating: flex;
+  --display-imdb-logo: flex;
   --display-star-rating: none;
-  --display-critic-rating: none;
+  --display-critic-rating: flex;
 }
 
+/* Base slide text shadow */
 .slide,
 .slide * {
   text-shadow: 0 0px 3px rgba(0, 0, 0, 2);
 }
 
+/* Preload background */
 .preload {
   background-color: var(--theme-background-color);
 }
 
+/* content type (Movie/TV Show label) */
+/* (disabled for cleanliness. if you want to re-enable, you'll need to do some shifting around of the other stuff)*/
 .featured-content {
+  position: absolute;
+  top: calc(50% - 0.5vh); /* Position below info */
+  left: 4vw;
+  color: #fff;
+  font-family: "Rubik", sans-serif;
+  z-index: 5;
+  font-weight: 500;
+  font-size: 0.9em;
+  margin-top: 2vh !important;
   display: none !important;
 }
 
-/* Animations */
-@keyframes scroll-vertical {
+
+@keyframes scroll-vertical { /* Keep custom scroll */
   0%, 10% { transform: translateY(0); }
   40%, 90% { transform: translateY(var(--scroll-amount)); }
   100% { transform: translateY(0); }
@@ -54,7 +67,6 @@
   to { transform: scale(1.1); }
 }
 
-/* Marquee / Scrolling Text */
 .marquee-vertical {
   position: relative;
   overflow: hidden;
@@ -67,7 +79,6 @@
   will-change: transform;
 }
 
-/* Loading Screen */
 .bar-loading {
   z-index: 99999999 !important;
   position: fixed;
@@ -86,6 +97,7 @@
 
 .bar-loading.hide {
   opacity: 0;
+  pointer-events: none;
 }
 
 .loader-content {
@@ -152,11 +164,21 @@
 
 .homeSectionsContainer {
   position: relative;
-  top: 65vh;
+  margin-top: unset !important;
   z-index: 6;
+  top: -25vh !important;
+  /*background-color: var(--theme-background-color);*/
 }
 
-/* Slide Structure and Appearance */
+#slides-container {
+  position: relative;
+  width: 100vw;
+  height: 90vh;
+  overflow: hidden;
+  margin: 0 auto;
+  padding-top: 6vh !important;
+}
+
 .slide {
   opacity: 0;
   position: absolute;
@@ -166,6 +188,7 @@
   height: 100%;
   transition: opacity 0.5s ease-in-out;
   z-index: 0;
+  cursor: pointer;
 }
 
 .slide.active {
@@ -173,11 +196,13 @@
   z-index: 1;
 }
 
-.slide.active.slideshow-paused .backdrop.animate {
+/* Pause state animation control */
+.slide.active.slideshow-paused .backdrop.animate,
+.slide.active.slideshow-paused .logo.animate {
   animation-play-state: paused;
 }
 
-/* Backdrop and Overlays */
+
 .backdrop-container {
   position: absolute;
   top: 0%;
@@ -200,22 +225,31 @@
   -webkit-mask-image: linear-gradient(to top, #fff0 2%, rgb(0 0 0 / 0.5) 6%, #000000 8%);
 }
 
-.backdrop.low-quality {
+.backdrop.low-quality, .logo.low-quality {
   filter: blur(0.5px);
   transform: scale(1.01);
   transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.backdrop.high-quality {
+.backdrop.high-quality, .logo.high-quality {
   filter: blur(0);
   transform: scale(1);
   transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
+.logo.high-quality {
+  filter: brightness(1.1) blur(0);
+}
+
+
 .backdrop.animate {
   animation: frostedGlass 1.2s cubic-bezier(0.4, 0, 0.2, 1),
     kenBurnsZoomIn 10s ease-out forwards;
 }
+.logo.animate {
+  animation: frostedGlass 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 
 .backdrop-overlay,
 .gradient-overlay {
@@ -241,9 +275,9 @@
     rgba(29, 29, 29, 0.35) 30%,
     rgba(29, 29, 29, 0) 100%
   );
+  top: -6vh;
 }
 
-/* Logo */
 .logo-container {
   width: 40%;
   height: 35%;
@@ -251,7 +285,7 @@
   display: flex;
   align-items: center;
   z-index: 5;
-  bottom: calc(50% + 1vh);
+  bottom: calc(50% + 1vh); 
   left: 4vw;
 }
 
@@ -264,22 +298,9 @@
   width: auto;
   object-fit: contain;
   filter: brightness(1.5);
-  transition: filter 0.3s ease-in-out;
 }
 
-.logo.low-quality {
-  filter: brightness(1) blur(0.5px);
-}
 
-.logo.high-quality {
-  filter: brightness(1.1) blur(0);
-}
-
-.logo.animate {
-  animation: frostedGlass 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Title, Plot, Genre */
 .slide-title {
   position: absolute;
   display: flex;
@@ -294,35 +315,43 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 90%;
+  max-width: 50%;
 }
 
 .plot-container {
   position: absolute;
-  top: calc(50% + 6vh);
+  top: calc(50% + 7.5vh);
   left: 4vw;
-  width: 90%;
+  width: 40vw;
+  max-width: 70vw;
   height: 15%;
+  max-height: 12vh;
   color: #fff;
   z-index: 5;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  text-align: justify;
+  text-align: left;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .plot {
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  white-space: nowrap;
   position: relative;
   color: #fff;
+  width: 70vh !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  line-height: 1.4 !important;
 }
+
+.plot p { margin-right: 2vh !important; }
 
 .plot a {
   color: pink;
@@ -334,27 +363,25 @@
   color: #fff;
 }
 
-a.slide .plot-container .plot {
-  white-space: normal !important;
-  word-break: break-word !important;
-  max-width: 50vw !important;
-  max-height: fit-content !important;
-  line-height: 1.4 !important;
-  -webkit-line-clamp: 3 !important;
-}
-
 .genre {
   position: absolute;
-  top: calc(50% + 4vh);
+  top: calc(50% + 6vh);
   left: 4vw;
-  text-align: center;
+  text-align: left;
   color: #fff;
   font-family: "Rubik", sans-serif;
   z-index: 5;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.genre .separator-icon {
+    font-size: 8px;
+    opacity: 0.7;
 }
 
-/* Navigation Arrows */
+
 .arrow {
   position: absolute;
   top: 50%;
@@ -379,7 +406,7 @@ a.slide .plot-container .plot {
 
 .dots-container {
   position: absolute;
-  top: calc(50% + 18vh);
+  top: calc(50% + 15vh);
   right: 3%;
   z-index: 5;
   display: flex;
@@ -395,7 +422,7 @@ a.slide .plot-container .plot {
   width: 8px;
   height: 8px;
   margin: 0 5px;
-  background-color: #CCCCCC;
+  background-color: #CCCCCC
   border-radius: 50%;
   transform-origin: center;
   cursor: pointer;
@@ -419,19 +446,14 @@ a.slide .plot-container .plot {
 
 .button-container {
   position: absolute;
-  top: calc(50% + 17vh);
-  left: 4vw; 
-  display: flex;
-  z-index: 5;
-  justify-content: space-between; 
-  gap: 15px;
-}
-
-.button-container {
+  top: calc(50% - 2.5vh);
+  left: 4vw;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  top: calc(50% + 4vh);
+  z-index: 5;
+  justify-content: flex-start;
+  margin-top: 4vh !important;
 }
 
 .button-container button {
@@ -445,85 +467,42 @@ a.slide .plot-container .plot {
   -webkit-backdrop-filter: none;
   position: relative;
   border: none;
-  transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out, opacity 0.3s ease;
   -webkit-tap-highlight-color: #fff0;
-}
-
-.play-button {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 16px;
-  border: solid 0px rgba(255, 255, 255, 0);
   font-family: "Rubik", sans-serif;
   font-size: 18px;
   white-space: nowrap;
   cursor: pointer;
-  transition: all 0.3s ease;
   font-weight: 700;
-  gap: 6px;
-  -webkit-tap-highlight-color: #fff0;
 }
 
-.detail-button,
-.favorite-button {
-  font-size: 18px; 
-  border-radius: 50%; 
-  height: 50px; 
-  width: 50px;
-  border: none;
-  cursor: pointer;
-  transition: color 0.2s;
-  -webkit-tap-highlight-color: #fff0;
-}
-
-.detail-button {
-  color: rgb(0, 0, 0);
-}
-
-.favorite-button {
-  color: red;
-}
-
-.favorite-button.favorited {
-  color: red;
-}
-
-/* Specific button styles within the .button-container */
 .button-container .favorite-button,
 .button-container .detail-button {
   width: var(--button-icon-only-size);
   height: var(--button-icon-only-size);
   min-width: var(--button-icon-only-size);
   padding: 0;
+  border-radius: 50%;
 }
 
 .button-container .play-button {
   padding: var(--button-play-padding);
-  gap: 0rem;
+  gap: 0.5rem;
   min-width: auto;
   width: auto;
   height: var(--button-icon-only-size);
   background-color: var(--button-bg-play) !important;
   border-radius: var(--theme-roundness) !important;
+  flex-direction: row;
 }
 
-/* Hover states for buttons in .button-container */
 .button-container .favorite-button:hover,
 .button-container .detail-button:hover,
 .button-container .play-button:hover {
   background-color: var(--button-bg-subtle-hover) !important;
-  opacity: 1;
-}
-.play-button:hover,
-.detail-button:hover,
-.favorite-button:hover {
   opacity: 0.8;
 }
 
-
-/* Button Icons (::before pseudo-elements) */
 .play-button::before,
 .detail-button::before,
 .favorite-button::before {
@@ -548,19 +527,15 @@ a.slide .plot-container .plot {
 .favorite-button::before {
   content: "favorite_outline";
 }
-.button-container .favorite-button::before {
-  content: "favorite";
-}
 .favorite-button.favorited::before {
   content: "favorite";
 }
 
 
-/* Slideshow Pause/Play Button */
 #slideshow-pause-button {
   position: absolute;
-  top: calc(50% + 18vh);
-  right: calc(2.5% + 65px);
+  top: calc(50% + 15vh);
+  right: calc(3% + 70px);
   z-index: 6;
   background-color: rgba(255,255,255,0.1);
   color: white;
@@ -577,7 +552,7 @@ a.slide .plot-container .plot {
 }
 
 #slideshow-pause-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--button-bg-subtle-hover);
 }
 
 #slideshow-pause-button .material-icons {
@@ -585,14 +560,13 @@ a.slide .plot-container .plot {
 }
 
 
-/* Info Container and Elements (Ratings, Runtime, Date) */
 .info-container {
   position: absolute;
-  top: calc(50% + 0vh);
+  top: calc(50% - 2vh);
   left: 4vw;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: #fff;
   z-index: 5;
   align-content: center;
@@ -600,66 +574,60 @@ a.slide .plot-container .plot {
   font-weight: 500;
 }
 
-.rating-value,
-.runTime,
-.date {
+/* This is the main container for all rating items */
+.rating-value {
   font-family: "Rubik", sans-serif;
   display: flex;
   align-items: center;
   font-weight: 500;
-}
-
-.rating-value {
   z-index: 5;
-  position: relative; 
+  position: relative;
+  gap: 5px; /* Add gap between direct children */
+  margin-top: 1vh !important;
 }
-
 .runTime,
 .date,
 .age-rating,
-.separator-icon {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.runTime, .date, .imdb-logo, .tomato-logo, .critic-logo {
+.tomato-rating,
+.star-rating-container
+ {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-content: center;
 }
 
-.tomato-rating {
-  display: var(--display-tomato-rating) !important;
-  align-items: center;
-  margin-left: 0;
-}
 
 .imdb-logo {
   display: var(--display-imdb-logo) !important;
   margin-right: 1px;
 }
-.imdb-logo+span {
+.imdb-logo + span {
     display: var(--display-imdb-logo) !important;
 }
 
+.tomato-rating {
+  display: var(--display-tomato-rating) !important;
+  align-items: center;
+}
 .tomato-logo {
-  margin-left: 5px;
+}
+.critic-logo {
+  display: var(--display-critic-rating) !important;
 }
 
-.critic-logo {
-  margin-right: 5px;
+.star-rating-container {
+  display: var(--display-star-rating) !important;
+  align-items: center;
 }
-.starRatingContainer.mediaInfoItem {
-    display: var(--display-star-rating) !important;
-}
-.mediaInfoCriticRating {
-    display: var(--display-critic-rating) !important;
+.community-rating-star {
+  color: #f2b01e;
+  font-size: 1.4em; /* Adjust size as needed */
+  height: auto !important;
+  margin-right: 0.125em;
+  width: auto !important;
 }
 
 .age-rating {
-  display: var(--display-age-rating) !important; 
+  display: var(--display-age-rating) !important;
   border-radius: 5px;
   background: rgb(255 255 255 / 0.8);
   color: #000;
@@ -672,163 +640,72 @@ a.slide .plot-container .plot {
 .separator-icon {
   font-size: 10px;
   color: aquamarine;
+  display: flex; /* Ensure it doesn't cause wrap */
+  align-items: center;
 }
 
-/* Conditional display of separators based on sibling visibility (IMDB as primary check) */
-.imdb-logo+.separator-icon,
-.tomato-rating+.separator-icon,
-.age-rating+.separator-icon,
-.imdb-logo+span+.separator-icon {
-  display: var(--display-imdb-logo) !important;
+.rating-value > .separator-icon {
+    margin-left: 5px;
+    margin-right: 5px;
 }
+.imdb-logo + span + .separator-icon,
+.tomato-rating + .separator-icon,
+.star-rating-container + .separator-icon,
+.date + .separator-icon,
+.age-rating + .separator-icon {
+  /* This logic is complex with variables; simpler to just add separators always */
+  display: flex !important; /* Always show if its preceding sibling is shown by display var */
+}
+/* Hide separator if the element ITSELF depends on is hidden */
+.tomato-rating + .separator-icon { display: var(--display-tomato-rating) !important; }
+.age-rating + .separator-icon { display: var(--display-age-rating) !important; }
+
+/* Hide separator following IMDB logo+rating if IMDB is off */
+.imdb-logo + span + .separator-icon { display: var(--display-imdb-logo) !important; }
 
 
-/* General Adjustments */
 .dots-container {
-  top: calc(50% + 16vh);
-}
-
-.genre {
-  top: calc(50% + 10.5vh);
-}
-
-.plot-container {
-  top: calc(50% + 12vh);
+  top: calc(50% + 15vh);
 }
 
 
-/* Media Queries */
-
-/* Landscape Phones */
 @media only screen and (max-height: 767px) and (orientation: landscape) {
-  #slides-container {
-    height: 100%;
-  }
-  .homeSectionsContainer {
-    top: 57vh;
-  }
-  .button-container {
-    left: 3vw;
-    top: 30vw;
-    transform: scale(0.85);
-  }
-  .dots-container {
-    scale: 0.6;
-    top: calc(50% + 20vh);
-  }
-  #slideshow-pause-button {
-    right: calc(3% + 70px);
-    top: calc(50% + 20vh);
-    transform: scale(0.85);
-    left: auto;
-  }
-  .info-container {
-    top: calc(50% + 5vh);
-    left: 5vw;
-  }
-  .plot-container {
-    top: calc(50% + 6vh);
-    left: 5vw;
-  }
-  .genre {
-    top: calc(50% + -10vh);
-    left: 5vw;
-  }
-  .logo-container {
-    height: 30%;
-    top: 10%;
-    left: 5vw;
-  }
-  .slide-title {
-    display: flex;
-    left: 4vw;
-  }
+  #slides-container { height: 100%; }
+  .homeSectionsContainer { top: 57vh; }
+  .button-container { left: 3vw; transform: scale(0.85); top: calc(50% + 4vh); }
+  .dots-container { scale: 0.6; top: calc(50% + 18vh); }
+  #slideshow-pause-button { right: calc(3% + 70px * 0.85); top: calc(50% + 18vh); transform: scale(0.85); left: auto; }
+  .info-container { top: calc(50% + 0vh); left: 5vw; }
+  .plot-container { top: calc(50% + 12vh); left: 5vw; max-width: 45vw; -webkit-line-clamp: 2; } /* Adjust plot width/clamp */
+  .genre { top: calc(50% + 10.5vh); left: 5vw; }
+  .logo-container { height: 30%; top: 10%; left: 5vw; bottom: auto; }
+  .logo { position: relative; bottom: auto; top: auto; }
+  .slide-title { display: flex; left: 4vw; top: calc(50% - 5vh); max-width: 45%; } /* Restore title */
 }
 
-/* Portrait Phones/Tablets (max-width: 767px) */
 @media only screen and (max-width: 767px) and (orientation: portrait) {
-  .plot-container {
-    position: absolute;
-    display: flex;
-    left: 55%;
-    bottom: 40%;
-    width: 90vw;
-    transform: translate(-50%, -40px);
-  }
-  .plot {
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    min-width: 80vw;
-    max-width: 100vw;
-    text-align: center;
-    text-overflow: ellipsis;
-    height: 6em;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-  }
-  .gradient-overlay {
-    background: rgb(0 0 0 / 0.25);
-    pointer-events: none;
-  }
-  .dots-container {
-    left: 50%;
-    transform: translateX(-50%) scale(0.8);
-    background-color: #ffffff00;
-    top: calc(50% + 20vh - 16px + 2em);
-  }
-  .dot.active {
-    transform: scale(1.6);
-  }
-  .genre {
-    top: calc(50% + 4vh);
-    left: 50%;
-    width: 100%;
-    transform: translateX(-50%);
-    text-align: center;
-  }
-  .info-container {
-    top: calc(32% + 10vh);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 95%;
-    justify-content: center;
-  }
-  .button-container { /* The one for play/detail/fav */
-    top: calc(50% - 2.6vh);
-    left: 50%;
-    transform: translateX(-50%) scale(0.95);
-  }
-  .slide-title {
-    display: none;
-  }
-  .logo-container {
-    top: calc(32% + 12vh - 25%);
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    transform: none;
-    width: 85%;
-    height: 23%;
-    align-items: center;
-    bottom: auto;
-  }
-  .logo {
-    left: 0;
-    transform: none;
-    margin: auto;
-    top: 0px;
-    position: relative;
-    max-height: 90%;
-    bottom: auto;
-    filter: brightness(1.5);
-  }
-  .plot {
-    height: 8em;
-  }
-  #slideshow-pause-button {
-    right: calc(50% - var(--button-icon-only-size)/2);
-    top: calc(50% + 20vh + 2em);
-    left: auto;
-  }
+  .plot-container { left: 50%; top: calc(50% + 12vh); width: 90vw; transform: translateX(-50%); height: auto; max-height: 15vh; max-width: 90vw; }
+  .plot { position: relative; max-width: 100%; text-align: center; height: auto; -webkit-line-clamp: 3; }
+  .gradient-overlay { background: rgb(0 0 0 / 0.25); pointer-events: none; }
+  .dots-container { left: 50%; transform: translateX(-50%) scale(0.8); background-color: #ffffff00; top: calc(50% + 20vh); }
+  .dot.active { transform: scale(1.6); }
+  .genre { top: calc(50% + 10.5vh); left: 50%; width: 90%; transform: translateX(-50%); text-align: center; justify-content: center; }
+  .info-container { top: calc(50% + 0vh); left: 50%; transform: translateX(-50%); width: 95%; justify-content: center; }
+  .button-container { top: calc(50% + 4vh); left: 50%; transform: translateX(-50%) scale(0.95); }
+  .slide-title { display: none; }
+  .logo-container { top: calc(50% - 15vh); left: 50%; transform: translateX(-50%); width: 85%; height: 23%; align-items: center; bottom: auto; }
+  .logo { left: 0; transform: none; margin: auto; top: 0px; position: relative; max-height: 90%; bottom: auto; filter: brightness(1.5); }
+  #slideshow-pause-button { right: calc(50% - 20px); top: calc(50% + 20vh + 1em); left: auto; transform: scale(0.95); }
+}
+
+.pageWithAbsoluteTabs:not(.noSecondaryNavPage) {
+	padding-top: unset !important;
+}
+
+/* Hide plot container on inactive slides to prevent text bleed */
+.slide:not(.active) .plot-container {
+    visibility: hidden;
+}
+.slide.active .plot-container {
+    visibility: visible;
 }
