@@ -30,6 +30,7 @@ Finity is a modern, minimal, and elegant theme for [Jellyfin](https://jellyfin.o
 ---
 
 ## Screenshots
+Note: Screenshots may not 100% accurately reflect the current look of the theme.
 
 <div align="center">
 
