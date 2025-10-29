@@ -698,6 +698,13 @@
   #slideshow-pause-button { right: calc(50% - 20px); top: calc(50% + 20vh + 1em); left: auto; transform: scale(0.95); }
 }
 
+/* Optimization for 1080p screens and below */
+@media screen and (max-width: 1920px) and (max-height: 1080px) {
+  .genre {
+    top: calc(50% + 6.4vh);
+  }
+}
+
 .pageWithAbsoluteTabs:not(.noSecondaryNavPage) {
 	padding-top: unset !important;
 }
