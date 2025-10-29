@@ -104,7 +104,7 @@
   --detail-page-content-offset: -50vh; /* Vertical offset for content */
   --overflow-card-margin-left: 0vw; /* Left margin for the first overflow card */
   --overflow-portrait-width: 7.5vw; /* Width for portrait overflow cards */
-  --overflow-backdrop-width: 8.5vw; /* Width for backdrop overflow cards */
+  --overflow-backdrop-width: 10vw; /* Width for backdrop overflow cards */
   --episode-grid-gap: 1.5rem; /* Gap between items in the episode grid */
   --episode-grid-padding: 1rem; /* Padding around the episode grid */
   --episode-grid-min-item-width: 200px; /* Minimum width for episode grid items */
@@ -1345,9 +1345,11 @@ html.layout-desktop [dir="rtl"] .detailRibbon {
 
 /* Adjust the scroll buttons container's spacing */
 .layout-desktop .moreFromSeasonSection .emby-scrollbuttons {
-    padding-right: 0 !important; /* Remove default right padding */
-    /* Ensure buttons stay in line and don't wrap */
-    flex-shrink: 0;
+	padding-right: 0 !important;
+	flex-shrink: 0;
+	left: 12vw;
+	display: inline-table;
+	top: 1.35vw;
 }
 
 .emby-scrollbuttons {
@@ -1365,3 +1367,17 @@ html.layout-desktop [dir="rtl"] .detailRibbon {
       width: 100%;
       box-sizing: border-box;
     }
+
+/* 1080p optimizations */
+@media screen and (max-width: 1920px) and (max-height: 1080px) {
+  /* media card resizing */
+  .cardOverlayButton-br {
+    gap: 0.025rem;
+  }
+  .cardOverlayContainer > .cardOverlayFab-primary {
+    font-size: 100%;
+  }
+  .paper-icon-button-light:hover:not(:disabled) {
+    transform: scale(0.7) !important;
+  }
+}
