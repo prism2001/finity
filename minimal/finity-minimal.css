@@ -180,6 +180,13 @@ option {
   border-image-source: var(--border-color);
 }
 
+.sectionTitleContainer > .sectionTitle {
+	display: inline-block;
+	margin: 0;
+	vertical-align: middle;
+	text-shadow: 0.5px 0.5px 4px black;
+}
+
 .actionSheetContent {
 	background: rgba(0, 0, 0, 0.75);
 }
@@ -1393,5 +1400,6 @@ html.layout-desktop [dir="rtl"] .detailRibbon {
     transform: scale(0.7) !important;
   }
 }
+
 
 
