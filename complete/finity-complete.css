@@ -779,11 +779,11 @@ div.detailPageContent div.detailSectionContent p, /* General paragraph in detail
     text-shadow: var(--text-shadow-video-cue) !important;
 
     /* Layout and Size Properties */
-    font-size: 2.5em !important;
+    font-size: 2.5vw !important;
     font-weight: normal !important;
     background-color: transparent !important;
     font-variant: none !important;
-    margin-bottom: 1.45em !important;
+    margin-bottom: 6.5vh !important;
     max-width: 95vw !important;
 }
 
@@ -1396,5 +1396,6 @@ html.layout-desktop [dir="rtl"] .detailRibbon {
     body > #reactRoot .mainAnimatedPages .page.homePage .tabContent#homeTab #slides-container + .homeSectionsContainer {
       top: -25vh !important;
     }
+
 
 
