@@ -180,6 +180,13 @@ option {
   border-image-source: var(--border-color);
 }
 
+.sectionTitleContainer > .sectionTitle {
+	display: inline-block;
+	margin: 0;
+	vertical-align: middle;
+	text-shadow: 0.5px 0.5px 4px black;
+}
+
 .actionSheetContent {
 	background: rgba(0, 0, 0, 0.75);
 }
@@ -1396,6 +1403,7 @@ html.layout-desktop [dir="rtl"] .detailRibbon {
     body > #reactRoot .mainAnimatedPages .page.homePage .tabContent#homeTab #slides-container + .homeSectionsContainer {
       top: -25vh !important;
     }
+
 
 
 
