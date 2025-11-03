@@ -777,10 +777,22 @@ div.detailPageContent div.detailSectionContent p, /* General paragraph in detail
 /* === VIDEO PLAYER & SUBTITLES === */
 /* ======================================== */
 
-video.htmlvideoplayer::cue {
-  font-family: var(--font-family-video-cue) !important;
-  color: white !important;
-  text-shadow: var(--text-shadow-video-cue) !important;
+.videoSubtitlesInner,
+.videoSubtitlesInner i {
+    /* Font and Color */
+    font-family: var(--font-family-video-cue) !important;
+    color: rgb(255, 255, 255) !important; /* Explicitly white */
+
+    /* Text Outline */
+    text-shadow: var(--text-shadow-video-cue) !important;
+
+    /* Layout and Size Properties */
+    font-size: 2.5em !important;
+    font-weight: normal !important;
+    background-color: transparent !important;
+    font-variant: none !important;
+    margin-bottom: 1.45em !important;
+    max-width: 95vw !important;
 }
 
 /* --- Track Selection Popup (Audio/Subtitle Choice) --- */
@@ -1381,3 +1393,4 @@ html.layout-desktop [dir="rtl"] .detailRibbon {
     transform: scale(0.7) !important;
   }
 }
+
