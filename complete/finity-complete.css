@@ -772,21 +772,11 @@ div.detailPageContent div.detailSectionContent p, /* General paragraph in detail
 .videoSubtitlesInner,
 .videoSubtitlesInner i {
     /* Font and Color */
-    font-family: "Trebuchet MS", sans-serif !important;
+    font-family: var(--font-family-video-cue) !important;
     color: rgb(255, 255, 255) !important;
 
     /* Text Outline */
-    text-shadow:
-        /* Corners */
-        -3px -3px 0 #000,
-         3px -3px 0 #000,
-        -3px  3px 0 #000,
-         3px  3px 0 #000,
-        /* Sides */
-        -3px  0px 0 #000,
-         3px  0px 0 #000,
-         0px -3px 0 #000,
-         0px  3px 0 #000 !important;
+    text-shadow: var(--text-shadow-video-cue) !important;
 
     /* Layout and Size Properties */
     font-size: 2.5em !important;
@@ -1406,4 +1396,5 @@ html.layout-desktop [dir="rtl"] .detailRibbon {
     body > #reactRoot .mainAnimatedPages .page.homePage .tabContent#homeTab #slides-container + .homeSectionsContainer {
       top: -25vh !important;
     }
+
 
