@@ -717,7 +717,7 @@ div.detailPageContent div.detailSectionContent p, /* General paragraph in detail
   right: -42px;
 }
 
-.material-icons.play_arrow:before { /* Icon itself */
+.material-icons.play_arrow::before { /* Icon itself */
   margin-left: 10px;
 }
 
@@ -1127,6 +1127,10 @@ div.listItem-content div.listItemImage.listItemImage-large.itemAction.lazy.non-b
   left: -5.5px;
 }
 
+.material-icons.listItemImageButton-icon.play_arrow::before {
+  margin-left: 0;
+}
+
 /* ======================================== */
 /* === RESPONSIVE ADJUSTMENTS === */
 /* ======================================== */
@@ -1315,9 +1319,6 @@ option {
   .cardOverlayContainer > .cardOverlayFab-primary {
     font-size: 100%;
   }
-  .paper-icon-button-light:hover:not(:disabled) {
-    transform: scale(0.7) !important;
-  }
 }
 
 /* restore position for ribbon */
@@ -1377,14 +1378,14 @@ html.layout-desktop [dir="rtl"] .detailRibbon {
 /* Adjust the scroll buttons container's spacing */
 .layout-desktop .moreFromSeasonSection .emby-scrollbuttons {
 	padding-right: 0 !important;
+  margin-right: 0 !important;
 	flex-shrink: 0;
-	left: 12vw;
 	display: inline-table;
 	top: 1.35vw;
 }
 
 .emby-scrollbuttons {
-  margin-right: 80vw !important;
+  margin-right: 0 !important;
 }
 
 /* --- Home Section Container Positioning --- */
