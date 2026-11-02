@@ -4,7 +4,8 @@
 <p align="center">
 <a href="https://github.com/prism2001/finity?tab=readme-ov-file#screenshots">Screenshots</a> | <a href="https://github.com/prism2001/finity?tab=readme-ov-file#installation">Install</a>
 </p>
-Now in beta. There is still polishing to be done here and there, and some areas of the UI haven't been completely finalized yet, but most of the main styling is present. PRs are welcomed - whether it be to make things more efficient, performant, or to polish the overall theme. Right now there may be quite a few bugs since I haven't had very many people testing it on different browsers and monitor setups.
+
+I have personally discontinued this theme as of 2026-11-01. I do not actively use Jellyfin at the moment, and I do not have the time to maintain this. If you are looking for a similar theme that is a bit more maintained, I recommend checking out the [Abyss](https://github.com/AumGupta/abyss-jellyfin) theme.
 
 Finity is a modern, minimal, and elegant theme for [Jellyfin](https://jellyfin.org). Designed with clarity and immersiveness in mind, it introduces sleek typography, and a clean layout to elevate your media browsing experience.
 
